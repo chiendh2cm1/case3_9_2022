@@ -32,8 +32,8 @@ public class LoginServlet extends HttpServlet {
 
     private void Login(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         HttpSession session = request.getSession();
-        String admin = "admin";
-        String user = "user";
+//        String admin = "admin";
+//        String user = "user";
         String userName = request.getParameter("username");
         String password = request.getParameter("password");
         Account account = accountDao.findByLoginName(userName);
@@ -53,15 +53,15 @@ public class LoginServlet extends HttpServlet {
                 } else {
                     RequestDispatcher requestDispatcher = request.getRequestDispatcher("admin/mangament.jsp");
                     requestDispatcher.forward(request, response);
-                    session.setAttribute("role", admin);
+//                    session.setAttribute("role", admin);
                 }
             } else if (account.getPassword().equals(password)) {
                 String logined = "ok";
                 HttpSession httpSession = request.getSession();
-                httpSession.setAttribute("cookieUserName",userName);
+                httpSession.setAttribute("cookieUserName", userName);
                 httpSession.removeAttribute("cookieIsLogin");
-                httpSession.setAttribute("cookieIsLogin",logined);
-                httpSession.setAttribute("role",user);
+                httpSession.setAttribute("cookieIsLogin", logined);
+//                httpSession.setAttribute("role",user);
                 response.sendRedirect("/pagination");
             } else {
                 RequestDispatcher requestDispatcher = request.getRequestDispatcher("login.jsp");

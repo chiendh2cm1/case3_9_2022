@@ -2,6 +2,7 @@ package com.codegym.controller;
 
 import com.codegym.dao.AccountDao;
 import com.codegym.dao.OrderDao;
+import com.codegym.dao.OrdertailDao;
 import com.codegym.dao.ProductDao;
 import com.codegym.model.Account;
 import com.codegym.model.Order;
@@ -22,6 +23,7 @@ public class CartServlet extends HttpServlet {
     ProductDao productDao = new ProductDao();
     OrderDao orderDao = new OrderDao();
     AccountDao accountDao = new AccountDao();
+    OrdertailDao ordertailDao = new OrdertailDao();
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -51,7 +53,7 @@ public class CartServlet extends HttpServlet {
                 checkInfoCustomer(request, response);
                 break;
             case "checkOrderInformation":
-                checkOderInformationAndInsertOrderDetail (request, response);
+                checkOderInformationAndInsertOrderDetail(request, response);
                 break;
 
         }
@@ -69,13 +71,13 @@ public class CartServlet extends HttpServlet {
         Order orderSession = (Order) session.getAttribute("order");
         List<Orderdetail> list = orderSession.getOrderdetails();
 
-        Order order = new Order(orderId, accountId, receiver, address, email,phoneNumber);
-        orderDao.addOrderFromCart(order);
+        Order order = new Order(orderId, accountId, receiver, address, email, phoneNumber);
+        orderDao.createOrder(order);
         for (int i = 0; i < list.size(); i++) {
             String productId = list.get(i).getProduct().getProductId();
             String quantity = String.valueOf(list.get(i).getQuantity());
             String priceEach = String.valueOf(list.get(i).getPrice());
-            orderDao.addOrderProductFromCart(orderId,productId,Integer.parseInt(quantity),Float.parseFloat(priceEach),accountId);
+            orderDao.addOrderProductFromCart(orderId, productId, Integer.parseInt(quantity), Float.parseFloat(priceEach), accountId);
         }
         List<Integer> orderQuantities = new ArrayList<>();
         for (int i = 0; i < list.size(); i++) {
@@ -88,17 +90,17 @@ public class CartServlet extends HttpServlet {
         }
 
         for (int i = 0; i < quantityInStock.size(); i++) {
-            quantityInStock.set(i,(quantityInStock.get(i)-orderQuantities.get(i)));
+            quantityInStock.set(i, (quantityInStock.get(i) - orderQuantities.get(i)));
         }
 
         for (int i = 0; i < quantityInStock.size(); i++) {
-            orderDao.updateQuantityProduct(quantityInStock.get(i),list.get(i).getProduct().getProductId());
+            orderDao.updateQuantityProduct(quantityInStock.get(i), list.get(i).getProduct().getProductId());
         }
 
 
         String announcementOrderSuccessful = "Order Completed ! Please wait Admin to Confirm";
         RequestDispatcher requestDispatcher = request.getRequestDispatcher("cart.jsp");
-        request.setAttribute("announcementOrderSuccessful",announcementOrderSuccessful);
+        request.setAttribute("announcementOrderSuccessful", announcementOrderSuccessful);
         requestDispatcher.forward(request, response);
         session.removeAttribute("order");
     }
@@ -117,18 +119,14 @@ public class CartServlet extends HttpServlet {
             }
         } else {
             String email = request.getParameter("email");
-            String receiver = "";
-            String address = "";
-            String phoneNumber = "";
-
-            if (!email.equals("example@gmail.com")) {
-                receiver = request.getParameter("fullName");
-                phoneNumber = request.getParameter("phoneNumber");
-                address = request.getParameter("address");
-            }
-
-            if (receiver.equals("") || address.equals("") || phoneNumber.equals("") || email.equals("example@gmail.com") || email.equals("")) {
-                String announcementToFillFields = "Please fill up all fields or Do not use 'example' value";
+            String receiver = request.getParameter("fullName");
+            ;
+            String address = request.getParameter("address");
+            ;
+            String phoneNumber = request.getParameter("phoneNumber");
+            ;
+            if (receiver.equals("") || address.equals("") || phoneNumber.equals("") || email.equals("")) {
+                String announcementToFillFields = "Do not leave blank";
                 request.setAttribute("announcementToFillFields", announcementToFillFields);
                 RequestDispatcher requestDispatcher = request.getRequestDispatcher("cart.jsp");
                 requestDispatcher.forward(request, response);
@@ -138,7 +136,13 @@ public class CartServlet extends HttpServlet {
 
                 Order order = (Order) session.getAttribute("order");
                 List<Orderdetail> list = order.getOrderdetails();
-
+                for (int i = 0; i < list.size(); i++) {
+                    try {
+                        ordertailDao.addOrderDetail(list.get(i));
+                    } catch (SQLException e) {
+                        e.printStackTrace();
+                    }
+                }
                 String orderDate = String.valueOf(LocalDate.now());
                 String[] dateArray = orderDate.split("-");
                 int no;
@@ -152,7 +156,6 @@ public class CartServlet extends HttpServlet {
                 }
 
                 String orderId = orderIdHead + String.valueOf(no);
-
                 RequestDispatcher requestDispatcher = request.getRequestDispatcher("confirmOrder.jsp");
                 request.setAttribute("orderId", orderId);
                 request.setAttribute("list", list);
@@ -174,7 +177,6 @@ public class CartServlet extends HttpServlet {
         HttpSession session = request.getSession();
         Order order = (Order) session.getAttribute("order");
         List<Orderdetail> list = order.getOrderdetails();
-
         for (int i = 0; i < list.size(); i++) {
             list.get(i).setQuantity(Integer.parseInt(quantity[i]));
         }
@@ -212,6 +214,7 @@ public class CartServlet extends HttpServlet {
                         orderdetailList.add(orderdetail);
                         order.setOrderdetails(orderdetailList);
                         session.setAttribute("order", order);
+
                     } else {
                         Order order = (Order) session.getAttribute("order");
                         List<Orderdetail> orderdetailList = order.getOrderdetails();

@@ -39,7 +39,7 @@
             </tr>
             <tr>
                 <th style="width: 250px;"><b>OrderID</b></th>
-                <td><input type="hidden" name="orderId" value="${orderId}">${orderId}</td>
+                <td><input type="hidden" name="orderId" value="${orderId}">OrderId</td>
             </tr>
             <c:forEach items="${list}" var="list">
                 <tr>

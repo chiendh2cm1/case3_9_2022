@@ -20,58 +20,57 @@
     <h3>One More Step for Becoming A Part of Sun-Flower</h3><br>
     <h5>Fill up below form <i>[(*) can not be leave empty)]</i></h5><br>
     <form action="/login?action=signup" method="post">
-       <div class="table table-hover">
-           <table>
-               <tr>
-                   <td>User Name</td>
-                   <td><input type="text" name="userName" placeholder="aaaaaaa1"></td>
-                   <td><h6><i style="color: red" name="validateUserName">${validateUserName} </i></h6></td>
-               </tr>
-               <tr>
-                   <td>Password*</td>
-                   <td><input type="password" name="password" placeholder="aaaaaaA1"></td>
-                   <td><h6><i style="color: red" name="validatePassword">${validatePassword}</i></h6></td>
-               </tr>
-               <tr>
-                   <td>Re-type Password*</td>
-                   <td><input type="password" name="RetypePassword"></td>
-                   <td><h6><i style="color: red" name="validateRetypePassword">${validateReTypePassword} </i></h6></td>
-               </tr>
-               <tr>
-                   <td>Your Name</td>
-                   <td><input type="text" name="name" value=></td>
-                   <td><h6><i style="color: red" name ="validateName">${validateName} </i></h6></td>
-               </tr>
-               <tr>
-                   <td>Your Gender</td>
-                   <td>
-                       <input checked type="radio" id="male" name="gender" value="male">
-                       <label for="male">Male</label><br>
-                       <input type="radio" id="female" name="gender" value="female">
-                       <label for="female">Female</label><br>
-                   <td><h6><i></i></h6></td>
-               </tr>
-               <tr>
-                   <td>Your Address</td>
-                   <td><input type="text" name="address"></td>
-                   <td><h6><i style="color: red">${validateAddress}</i></h6></td>
-               </tr>
-               <tr>
-                   <td>Your Phone Number</td>
-                   <td><input type="text" name="phoneNumber" placeholder="0111111111"></td>
-                   <td><h6><i style="color: red">${validatePhoneNumber}</i></h6></td>
-               </tr>
-               <tr>
-                   <td><a href=""><input type="button" value="Cancel"></a></td>
-                   <td><input type="submit" value="Submit"></td>
-                   <td></td>
-               </tr>
-           </table>
-           ${signUpOK}
-       </div>
+        <div class="table table-hover">
+            <table>
+                <tr>
+                    <td>User Name (More than 8 characters including letters and numbers)</td>
+                    <td><input type="text" name="userName" placeholder="aaaaaaa1"></td>
+                    <td><h6><i style="color: red" name="validateUserName">${validateUserName} </i></h6></td>
+                </tr>
+                <tr>
+                    <td>Password* (more than 8 characters including uppercase, lowercase and numbers)</td>
+                    <td><input type="password" name="password" placeholder="aaaaaaA1"></td>
+                    <td><h6><i style="color: red" name="validatePassword">${validatePassword}</i></h6></td>
+                </tr>
+                <tr>
+                    <td>Re-type Password*</td>
+                    <td><input type="password" name="RetypePassword"></td>
+                    <td><h6><i style="color: red" name="validateRetypePassword">${validateReTypePassword} </i></h6></td>
+                </tr>
+                <tr>
+                    <td>Your Name</td>
+                    <td><input type="text" name="name" value=></td>
+                    <td><h6><i style="color: red" name="validateName">${validateName} </i></h6></td>
+                </tr>
+                <tr>
+                    <td>Your Gender</td>
+                    <td>
+                        <input checked type="radio" id="male" name="gender" value="male">
+                        <label for="male">Male</label><br>
+                        <input type="radio" id="female" name="gender" value="female">
+                        <label for="female">Female</label><br>
+                    <td><h6><i></i></h6></td>
+                </tr>
+                <tr>
+                    <td>Your Address</td>
+                    <td><input type="text" name="address"></td>
+                    <td><h6><i style="color: red">${validateAddress}</i></h6></td>
+                </tr>
+                <tr>
+                    <td>Your Phone Number (axample: 0111111111)</td>
+                    <td><input type="text" name="phoneNumber" placeholder="0111111111"></td>
+                    <td><h6><i style="color: red">${validatePhoneNumber}</i></h6></td>
+                </tr>
+                <tr>
+                    <td><a href=""><input type="button" value="Cancel"></a></td>
+                    <td><input type="submit" value="Submit"></td>
+                    <td></td>
+                </tr>
+            </table>
+            ${signUpOK}
+        </div>
     </form>
 </div>
-
 
 
 <jsp:include page="footer.jsp"></jsp:include>
