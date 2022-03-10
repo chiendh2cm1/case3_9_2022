@@ -32,6 +32,7 @@ public class OrderServlet extends HttpServlet {
                 break;
             case "deleteGet":
                 showdeleteForm(request, response);
+
             default:
                 ShowListOrder(request, response);
                 break;
