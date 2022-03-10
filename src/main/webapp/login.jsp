@@ -26,35 +26,72 @@
           integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" crossorigin="anonymous">
     <link rel="stylesheet" href="boostrap/css/bootstrap.css">
     <link rel="stylesheet" href="boostrap/css/mainStyle.css">
+    <style>
+        .container{
+            margin-top:10vh;
+        }
+        #cover {
+            background: #222 url('https://unsplash.it/1920/1080/?random') center center no-repeat;
+            background-size: cover;
+            height: 100%;
+            text-align: center;
+            display: flex;
+            align-items: center;
+            position: relative;
+        }
+
+        #cover-caption {
+            width: 100%;
+            position: relative;
+            z-index: 1;
+        }
+
+        /* only used for background overlay not needed for centering */
+        form:before {
+            content: '';
+            height: 100%;
+            left: 0;
+            position: absolute;
+            top: 0;
+            width: 100%;
+            background-color: rgba(0,0,0,0.3);
+            z-index: -1;
+            border-radius: 10px;
+        }
+
+    </style>
 </head>
-<body class="bodyImage" style='background-image: url("/img/bg.jpg"); '>
+<body class="bodyImage" style='background-image: url("https://unsplash.it/1920/1080/?random"); '>
 
 <%--HEADER--%>
-<div class="containerLogin">
-    <div class="loginPanel">
-        <form action="/login?action=login" method="post">
-            <table>
-                <tr>
-                    <td><a href="/pagination"><i style="font-size: 25px" class="fas fa-home"></i></a></td>
-                    <td colspan="2" style="text-align: center"><b>LOGIN !</b></td>
-                </tr>
-                <tr>
-                    <td style="width: 100px;">Username : </td>
-                    <td><input type="text" name="username" style="border-radius: 2px"></td>
-                </tr>
-                <tr>
-                    <td>Password : </td>
-                    <td><input type="password" name="password" style="border-radius: 2px"></td>
-                </tr>
-                <tr>
-                    <td><a href="/signUp.jsp"><input type="button" value="SignUp"></a></td>
-                    <td><input type="submit" value="Login">&nbsp<a href=""> Forgot Password ?</a></td>
-                </tr>
 
-            </table>
-        </form>
-        <i style="color: red">${thongBao}</i>
+<section id="cover" class="min-vh-100">
+    <div id="cover-caption">
+        <div class="container">
+            <div class="row text-white">
+                <div class="col-xl-5 col-lg-6 col-md-8 col-sm-10 mx-auto text-center form p-4">
+                    <h1 class="display-4 py-2 text-truncate">Login</h1>
+                    <div class="px-2">
+                        <form action="/login?action=login" method="post" class="justify-content-center">
+                            <div class="form-group">
+                                <label class="sr-only">Name</label>
+                                <input type="text" class="form-control" name="username" placeholder="Jane Doe">
+                            </div>
+                            <div class="form-group">
+                                <label class="sr-only">Password</label>
+                                <input type="password" name="password" class="form-control">
+                            </div>
+                            <a href="/pagination"><i style="font-size: 25px" class="fas fa-home"></i></a>
+                            <a href="/signUp.jsp"><button type="submit"  value="SignUp" class="btn btn-primary btn-lg">Sign Up </button></a>
+                            <button type="submit" class="btn btn-primary btn-lg">Login</button>
+
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
-</div>
+</section>
+
 </body>
 </html>
