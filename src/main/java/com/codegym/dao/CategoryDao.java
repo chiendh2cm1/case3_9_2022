@@ -29,9 +29,10 @@ public class CategoryDao implements ICategoryDao {
     }
 
     @Override
-    public void deleteCategory(String id) {
-
+    public boolean deleteCategory(String id) {
+        return false;
     }
+
 
     @Override
     public Category getCategory(String categoryId) throws SQLException {
@@ -39,12 +40,12 @@ public class CategoryDao implements ICategoryDao {
     }
 
     @Override
-    public void addCategory(Category category) {
-
+    public boolean addCategory(Category category) {
+        return false;
     }
 
     @Override
-    public void updateCategory(Category category) {
-
+    public boolean updateCategory(Category category) {
+        return false;
     }
 }
