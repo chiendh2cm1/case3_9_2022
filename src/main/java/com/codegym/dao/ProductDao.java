@@ -18,6 +18,8 @@ public class ProductDao implements IProductDao {
     private static final String CREATE_PRODUCT = "INSERT INTO atagvn.product(ProductID,CategoryID,ProductName,ProductPrice,QuantityInStock,Image,Status,Description) VALUES (?,?,?,?,?,?,?,?);";
     public static final String SELECT_PRODUCT_BY_CATEGORYID = "select * from chiendemo.product where CategoryID = ?";
     public static final String SELECT_FRODUCT_BY_NAME = "select * from chiendemo.product where ProductName like ?";
+    public static final String SQL_SELECT_ALL_PRODUCT = "select productId, categoryName, ProductName, ProductPrice, QuantityInStock,Image,Status,Description \n" +
+            "from product join category on product.CategoryID = category.categoryId;";
     Connection conn = null;
     PreparedStatement ps = null;
     ResultSet rs = null;
@@ -53,6 +55,31 @@ public class ProductDao implements IProductDao {
                         rs.getString(8)));
             }
         } catch (Exception e) {
+        }
+        return products;
+    }
+
+    public List<Product> displayAllProduct() {
+        List<Product> products = new ArrayList<>();
+        conn = DBConnect.getConnection();
+        try {
+            conn = DBConnect.getConnection();
+            ps = conn.prepareStatement(SQL_SELECT_ALL_PRODUCT);
+            rs = ps.executeQuery();
+            while (rs.next()) {
+                String id = rs.getString("productId");
+                String categoryName = rs.getString("categoryName");
+                String name = rs.getString("ProductName");
+                float price = rs.getFloat("ProductPrice");
+                int quantity = rs.getInt("QuantityInStock");
+                String image = rs.getString("Image");
+                int status = rs.getInt("Status");
+                String description = rs.getString("Description");
+                Product product = new Product(id, name, price, quantity, image, status, description, categoryName);
+                products.add(product);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
         }
         return products;
     }
@@ -119,6 +146,25 @@ public class ProductDao implements IProductDao {
             ps.executeUpdate();
         } catch (Exception e) {
         }
+    }
+
+    public boolean create(Product product){
+        conn = DBConnect.getConnection();
+        try {
+            ps = conn.prepareStatement("INSERT INTO product (ProductID, CategoryID, ProductName, ProductPrice, QuantityInStock, Image, Status, Description) VALUES (?, ?, ?, ?, ?, ?, ?, ?)");
+            ps.setString(1, product.getProductId());
+            ps.setString(2, product.getCategoryId());
+            ps.setString(3, product.getProductName());
+            ps.setFloat(4, product.getProductPrice());
+            ps.setInt(5, product.getQuantityInStock());
+            ps.setString(6, product.getImage());
+            ps.setInt(7, product.getStatus());
+            ps.setString(8, product.getDescription());
+            return ps.executeUpdate() > 0;
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return false;
     }
 
     @Override
