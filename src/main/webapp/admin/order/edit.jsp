@@ -15,7 +15,7 @@
 <body>
 <div class="container">
     <a href="/order">Danh sách đơn hàng</a>
-    <h1>Cập nhật sản phẩm</h1>
+    <h1>Cập nhật đơn hàng</h1>
     <form action="/order?action=editPost&id=${order.orderID}" method="post">
         <div class="mb-3">
             <label for="orderId" class="form-label">OrderId:</label>
