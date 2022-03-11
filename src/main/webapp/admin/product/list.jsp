@@ -1,4 +1,3 @@
-
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <html>
@@ -29,28 +28,28 @@
     <!-- Main Sidebar Container -->
     <aside class="main-sidebar sidebar-dark-primary elevation-4">
         <!-- Brand Logo -->
-
+        <a href="index3.html" class="brand-link">
+            <img src="dist/img/AdminLTELogo.png" alt="AdminLTE Logo" class="brand-image img-circle elevation-3"
+                 style="opacity: .8">
+            <span class="brand-text font-weight-light">Admin</span>
+        </a>
 
         <!-- Sidebar -->
         <div class="sidebar">
             <!-- Sidebar user panel (optional) -->
-            <div class="user-panel mt-3 pb-3 mb-3 d-flex">
-                <div class="image">
-                    <img src="" class="img-circle elevation-2" >
-                </div>
-            </div>
-
             <!-- SidebarSearch Form -->
             <div class="form-inline">
-                <div class="input-group" data-widget="sidebar-search">
-                    <input class="form-control form-control-sidebar" type="search" placeholder="Search"
-                           aria-label="Search">
-                    <div class="input-group-append">
-                        <button class="btn btn-sidebar">
-                            <i class="fas fa-search fa-fw"></i>
-                        </button>
+                <form action="/products">
+                    <div class="input-group" data-widget="sidebar-search">
+                        <input class="form-control form-control-sidebar" type="search" placeholder="Search"
+                               aria-label="Search" name="q">
+                        <div class="input-group-append">
+                            <button class="btn btn-sidebar">
+                                <i class="fas fa-search fa-fw"></i>
+                            </button>
+                        </div>
                     </div>
-                </div>
+                </form>
             </div>
 
             <!-- Sidebar Menu -->
@@ -63,8 +62,7 @@
                         <a href="/products" class="nav-link">
                             <i class="nav-icon fas fa-th"></i>
                             <p>
-                                Mangament Product
-
+                                Management Product
                             </p>
                         </a>
                     </li>
@@ -88,7 +86,7 @@
                         <a href="/order" class="nav-link">
                             <i class="nav-icon fas fa-th"></i>
                             <p>
-                                Management order
+                               Management Order
                             </p>
                         </a>
                     </li>
@@ -104,7 +102,7 @@
             <div class="container-fluid">
                 <div class="row mb-2">
                     <div class="col-sm-6">
-                        <h1 class="m-0">List order</h1>
+                        <h1 class="m-0">List product</h1>
                     </div><!-- /.col -->
                     <div class="col-sm-6">
                         <ol class="breadcrumb float-sm-right">
@@ -120,46 +118,48 @@
         <!-- Main content -->
         <section class="content">
             <div class="container-fluid">
-                <h1>Danh sách đơn hàng </h1>
-                <div class="alert alert-success" role="alert">${thongBao}</div>
-                <div class="alert alert-success" role="alert">${thongBao2}</div>
+                <div class="alert alert-success" role="alert">${alertCreate}</div>
+                <div class="alert alert-success" role="alert">${alertEdit}</div>
+                <div class="alert alert-success" role="alert">${alertDelete}</div>
+                <a class="btn btn-primary float-end" href="/products?action=create">Create new product</a><br>
                 <table class="table table-bordered">
                     <thead>
                     <tr>
-                        <th scope="col">Order ID</th>
-                        <th scope="col">Customer ID</th>
-                        <th scope="col">Order Date</th>
-                        <th scope="col">Receiver</th>
-                        <th scope="col">Address</th>
-                        <th scope="col">Customer imail</th>
-                        <th scope="col">Customer PhoneNumber</th>
+                        <th scope="col">#</th>
+                        <th scope="col">Category</th>
+                        <th scope="col">Name</th>
+                        <th scope="col">Price</th>
+                        <th scope="col">Quantity</th>
+                        <th scope="col">Image</th>
+                        <th scope="col">Status</th>
+                        <th scope="col">Description</th>
                         <th colspan="2"></th>
                     </tr>
                     </thead>
                     <tbody>
-                    <c:forEach var="order" items="${orders}">
+                    <c:forEach var="product" items="${products}" varStatus="loop">
                         <tr>
-                            <td><a href="/order?action=view&id=${order.orderID}">${order.orderID}(detail)</a></td>
-                            <td>${order.accountID}</td>
-                            <td>${order.orderDate}</td>
-                            <td>${order.receiver}</td>
-                            <td>${order.address}</td>
-                            <td>${order.email}</td>
-                            <td>${order.phoneNumber}</td>
-
+                            <th scope="row">${loop.count}</th>
+                            <td>${product.getCategoryName()}</td>
                             <td>
-                                <a class="btn btn-info" href="/order?action=editGet&id=${order.orderID}">
+                                <a href="/products?action=view&id=${product.getProductId()}">${product.getProductName()}</a>
+                            </td>
+                            <td>${product.getProductPrice()}</td>
+                            <td>${product.getQuantityInStock()}</td>
+                            <td><img src="${product.getImage()}" alt="Error" width="50" height="50"></td>
+                            <td>${product.getStatus()}</td>
+                            <td>${product.getDescription()}</td>
+                            <td>
+                                <a class="btn btn-info" href="/products?action=edit&id=${product.getProductId()}">
                                     <i class="fas fa-edit"></i>
                                 </a>
                             </td>
-                            <td><a class="btn btn-danger" href="/order?action=deleteGet&id=${order.orderID}"><i
+                            <td><a class="btn btn-danger" href="/products?action=delete&id=${product.getProductId()}"><i
                                     class="fas fa-trash"></i></a></td>
                         </tr>
                     </c:forEach>
                     </tbody>
                 </table>
-
-
             </div><!-- /.container-fluid -->
         </section>
         <!-- /.content -->

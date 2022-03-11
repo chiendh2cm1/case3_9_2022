@@ -9,6 +9,7 @@ import javax.servlet.*;
 import javax.servlet.http.*;
 import javax.servlet.annotation.*;
 import java.io.IOException;
+import java.sql.SQLException;
 import java.util.Date;
 import java.util.List;
 
@@ -37,7 +38,11 @@ public class OrderServlet extends HttpServlet {
                 showOrdertail(request, response);
                 break;
             default:
-                ShowListOrder(request, response);
+                try {
+                    ShowListOrder(request, response);
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
                 break;
         }
 
@@ -59,7 +64,7 @@ public class OrderServlet extends HttpServlet {
         requestDispatcher.forward(request, response);
     }
 
-    private void ShowListOrder(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    private void ShowListOrder(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, SQLException {
         List<Order> orders = orderService.findAll();
         request.setAttribute("orders", orders);
         RequestDispatcher requestDispatcher = request.getRequestDispatcher("admin/order/list.jsp");
@@ -86,12 +91,12 @@ public class OrderServlet extends HttpServlet {
                 deleteOrder(request, response);
                 break;
             case "editPost":
-                updateProduct(request, response);
+                updateOrder(request, response);
                 break;
         }
     }
 
-    private void updateProduct(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    private void updateOrder(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String thongBao = "Order Updated Successfully";
         String id = request.getParameter("id");
         String acountId = request.getParameter("accountId");
@@ -103,7 +108,12 @@ public class OrderServlet extends HttpServlet {
         boolean isUpdateed = orderService.updateById(id, order);
         if (isUpdateed) {
             request.setAttribute("thongBao", thongBao);
-            List<Order> orders = orderService.findAll();
+            List<Order> orders = null;
+            try {
+                orders = orderService.findAll();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
             request.setAttribute("orders", orders);
             RequestDispatcher requestDispatcher = request.getRequestDispatcher("admin/order/list.jsp");
             requestDispatcher.forward(request, response);
@@ -116,7 +126,12 @@ public class OrderServlet extends HttpServlet {
         boolean isDeleted = orderService.deleteById(id);
         if (isDeleted) {
             request.setAttribute("thongBao", thongBao2);
-            List<Order> orders = orderService.findAll();
+            List<Order> orders = null;
+            try {
+                orders = orderService.findAll();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
             request.setAttribute("orders", orders);
             RequestDispatcher requestDispatcher = request.getRequestDispatcher("admin/order/list.jsp");
             requestDispatcher.forward(request, response);

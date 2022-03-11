@@ -29,30 +29,16 @@
     <!-- Main Sidebar Container -->
     <aside class="main-sidebar sidebar-dark-primary elevation-4">
         <!-- Brand Logo -->
-
+        <a href="index3.html" class="brand-link">
+            <img src="dist/img/AdminLTELogo.png" alt="AdminLTE Logo" class="brand-image img-circle elevation-3"
+                 style="opacity: .8">
+            <span class="brand-text font-weight-light">Admin</span>
+        </a>
 
         <!-- Sidebar -->
         <div class="sidebar">
             <!-- Sidebar user panel (optional) -->
-            <div class="user-panel mt-3 pb-3 mb-3 d-flex">
-                <div class="image">
-                    <img src="" class="img-circle elevation-2" >
-                </div>
-            </div>
-
             <!-- SidebarSearch Form -->
-            <div class="form-inline">
-                <div class="input-group" data-widget="sidebar-search">
-                    <input class="form-control form-control-sidebar" type="search" placeholder="Search"
-                           aria-label="Search">
-                    <div class="input-group-append">
-                        <button class="btn btn-sidebar">
-                            <i class="fas fa-search fa-fw"></i>
-                        </button>
-                    </div>
-                </div>
-            </div>
-
             <!-- Sidebar Menu -->
             <nav class="mt-2">
                 <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu"
@@ -64,7 +50,6 @@
                             <i class="nav-icon fas fa-th"></i>
                             <p>
                                 Mangament Product
-
                             </p>
                         </a>
                     </li>
@@ -72,7 +57,7 @@
                         <a href="/category" class="nav-link">
                             <i class="nav-icon fas fa-th"></i>
                             <p>
-                                Management Category
+                                Mangament Category
                             </p>
                         </a>
                     </li>
@@ -80,7 +65,7 @@
                         <a href="/login" class="nav-link">
                             <i class="nav-icon fas fa-th"></i>
                             <p>
-                                Management Account
+                                Mangament Account
                             </p>
                         </a>
                     </li>
@@ -104,7 +89,7 @@
             <div class="container-fluid">
                 <div class="row mb-2">
                     <div class="col-sm-6">
-                        <h1 class="m-0">List order</h1>
+                        <h1 class="m-0">List Category</h1>
                     </div><!-- /.col -->
                     <div class="col-sm-6">
                         <ol class="breadcrumb float-sm-right">
@@ -120,40 +105,32 @@
         <!-- Main content -->
         <section class="content">
             <div class="container-fluid">
-                <h1>Danh sách đơn hàng </h1>
                 <div class="alert alert-success" role="alert">${thongBao}</div>
                 <div class="alert alert-success" role="alert">${thongBao2}</div>
+                <a class="btn btn-primary float-end" href="/category?action=create">Create new category</a>
                 <table class="table table-bordered">
                     <thead>
                     <tr>
-                        <th scope="col">Order ID</th>
-                        <th scope="col">Customer ID</th>
-                        <th scope="col">Order Date</th>
-                        <th scope="col">Receiver</th>
-                        <th scope="col">Address</th>
-                        <th scope="col">Customer imail</th>
-                        <th scope="col">Customer PhoneNumber</th>
+                        <th scope="col">Category ID:</th>
+                        <th scope="col">Category Name: </th>
                         <th colspan="2"></th>
                     </tr>
                     </thead>
                     <tbody>
-                    <c:forEach var="order" items="${orders}">
+                    <c:forEach var="category" items="${categories}">
                         <tr>
-                            <td><a href="/order?action=view&id=${order.orderID}">${order.orderID}(detail)</a></td>
-                            <td>${order.accountID}</td>
-                            <td>${order.orderDate}</td>
-                            <td>${order.receiver}</td>
-                            <td>${order.address}</td>
-                            <td>${order.email}</td>
-                            <td>${order.phoneNumber}</td>
-
+                            <td><a href="/category?action=view&id=${category.categoryId}">${category.categoryId} (detail)</a></td>
+                            <td>${category.categoryName}</td>
                             <td>
-                                <a class="btn btn-info" href="/order?action=editGet&id=${order.orderID}">
+                                <a class="btn btn-info" href="/category?action=editGet&id=${category.categoryId}">
                                     <i class="fas fa-edit"></i>
                                 </a>
                             </td>
-                            <td><a class="btn btn-danger" href="/order?action=deleteGet&id=${order.orderID}"><i
-                                    class="fas fa-trash"></i></a></td>
+                            <td>
+                                <a class="btn btn-danger" href="/category?action=deleteGet&id=${category.categoryId}"><i
+                                    class="fas fa-trash"></i>
+                                </a>
+                            </td>
                         </tr>
                     </c:forEach>
                     </tbody>

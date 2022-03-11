@@ -40,9 +40,7 @@
 <%! public static final int PRODUCT_QUANTITY_PER_PAGE = 6;
 %><%
   ProductDao productServiceImp = new ProductDao();
-  NumberFormat numberFormat = NumberFormat.getNumberInstance();
   CategoryDao categoryServiceImp = new CategoryDao();
-  Category category = categoryServiceImp.getCategory(request.getParameter("categoryId"));
 %>
 <%--HEADER--%>
 <jsp:include page="header.jsp"></jsp:include>

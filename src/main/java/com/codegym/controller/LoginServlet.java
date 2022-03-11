@@ -30,7 +30,7 @@ public class LoginServlet extends HttpServlet {
                 signUp(request, response);
                 break;
             case "edit":
-                editAcount(request, response);
+                editAccount(request, response);
                 break;
             case "delete":
                 deleteAccount(request, response);
@@ -53,7 +53,7 @@ public class LoginServlet extends HttpServlet {
         boolean status = true;
 
 
-        Account account = new Account(accountId,accountName,loginName,accountAccess,password,address,phoneNumber,gender,status);
+        Account account = new Account(accountId,accountName,loginName,password,accountAccess,address,phoneNumber,gender,status);
         accountDao.addNewAccount(account);
         response.sendRedirect("/login");
     }
@@ -64,7 +64,8 @@ public class LoginServlet extends HttpServlet {
         response.sendRedirect("/login");
     }
 
-    private void editAcount(HttpServletRequest request, HttpServletResponse response) throws IOException {
+    private void editAccount(HttpServletRequest request, HttpServletResponse response) throws IOException {
+
         String accountId = request.getParameter("accountId");
         String accountName = request.getParameter("accountName");
         String loginName = request.getParameter("loginName");
@@ -75,7 +76,8 @@ public class LoginServlet extends HttpServlet {
         boolean gender = Boolean.parseBoolean(request.getParameter("gender"));
         boolean status = Boolean.parseBoolean(request.getParameter("status"));
 
-        Account account = new Account(accountId,accountName,loginName,accountAccess,password,address,phoneNumber,gender,status);
+        Account account = new Account(accountId,accountName,loginName,password,accountAccess,address,phoneNumber,gender,status);
+        account = new Account(accountId,accountName,loginName,password,accountAccess,address,phoneNumber,gender,status);
         accountDao.updateAccountById(account);
 
         response.sendRedirect("/login");
@@ -83,8 +85,8 @@ public class LoginServlet extends HttpServlet {
 
     private void Login(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         HttpSession session = request.getSession();
-//        String admin = "admin";
-//        String user = "user";
+        String admin = "admin";
+        String user = "user";
         String userName = request.getParameter("username");
         String password = request.getParameter("password");
         Account account = accountDao.findByLoginName(userName);
@@ -104,15 +106,15 @@ public class LoginServlet extends HttpServlet {
                 } else {
                     RequestDispatcher requestDispatcher = request.getRequestDispatcher("admin/mangament.jsp");
                     requestDispatcher.forward(request, response);
-//                    session.setAttribute("role", admin);
+                    session.setAttribute("role", admin);
                 }
             } else if (account.getPassword().equals(password)) {
                 String logined = "ok";
                 HttpSession httpSession = request.getSession();
-                httpSession.setAttribute("cookieUserName", userName);
+                httpSession.setAttribute("cookieUserName",userName);
                 httpSession.removeAttribute("cookieIsLogin");
-                httpSession.setAttribute("cookieIsLogin", logined);
-//                httpSession.setAttribute("role",user);
+                httpSession.setAttribute("cookieIsLogin",logined);
+                httpSession.setAttribute("role",user);
                 response.sendRedirect("/pagination");
             } else {
                 RequestDispatcher requestDispatcher = request.getRequestDispatcher("login.jsp");

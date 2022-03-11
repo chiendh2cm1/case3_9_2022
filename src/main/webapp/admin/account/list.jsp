@@ -46,12 +46,8 @@
         <div class="sidebar">
             <!-- Sidebar user panel (optional) -->
             <div class="user-panel mt-3 pb-3 mb-3 d-flex">
-                <div class="image">
-                    <img src="" class="img-circle elevation-2">
-                </div>
-                <div class="info">
-                    <a href="#" class="d-block">${account.accountName}</a>
-                </div>
+
+
             </div>
 
             <!-- SidebarSearch Form -->
@@ -81,7 +77,7 @@
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a href=#" class="nav-link">
+                        <a href="/category" class="nav-link">
                             <i class="nav-icon fas fa-th"></i>
                             <p>
                                 Mangament Category
@@ -138,15 +134,28 @@
                             <td>${account.accountId}</td>
                             <td>${account.accountName}</td>
                             <td>${account.loginName}</td>
+
                             <td>${account.password}</td>
 
-                            <c:set var = "accountAccess" scope = "session" value = "${account.accountAccess}"/>
-                            <c:if test = "${accountAccess==true}">
-                                <td><c:out value = "Admin"/></td>
-                            </c:if>
-                            <c:if test = "${accountAccess==false}">
-                                <td><c:out value = "User"/></td>
-                            </c:if>
+
+                            <c:set var="accountAccess" value="${account.accountAccess}"/>
+
+                            <c:choose>
+                                <c:when test="${accountAccess=='1'}">
+                                    <td><c:out value = "Admin"/></td>
+                                </c:when>
+                                <c:when test="${accountAccess=='0'}">
+                                    <td><c:out value = "User"/></td>
+                                </c:when>
+                            </c:choose>
+
+<%--                            <c:set var = "accountAccess" scope = "session" value = "${account.accountAccess}"/>--%>
+<%--                            <c:if test ="${accountAccess==true}">--%>
+<%--                                <td><c:out value = "Admin"/></td>--%>
+<%--                            </c:if>--%>
+<%--                            <c:if test = "${accountAccess==false}">--%>
+<%--                                <td><c:out value = "User"/></td>--%>
+<%--                            </c:if>--%>
 
                             <td>${account.address}</td>
                             <td>${account.phoneNumber}</td>

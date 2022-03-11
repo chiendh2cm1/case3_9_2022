@@ -8,7 +8,7 @@ public class DBConnect {
 
     public static final String JDBC_URL = "jdbc:mysql://localhost:3306/chiendemo?allowPublicKeyRetrieval=true&useSSL=false";
     public static final String USERNAME = "root";
-    public static final String PASSWORD = "duongmen";
+    public static final String PASSWORD = "1821994ch";
 
     public static Connection getConnection() {
         Connection connection = null;
@@ -30,7 +30,6 @@ public class DBConnect {
             System.out.println("Error connection " + ex);
         }
 
-        // create connection
         return connection;
     }
 }

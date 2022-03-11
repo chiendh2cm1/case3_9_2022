@@ -4,7 +4,7 @@ use chiendemo;
 create table product
 (
     ProductID       varchar(20)  not null primary key unique,
-    CategoryID      varchar(20)  not null,
+    CategoryID      varchar(20)   null,
     ProductName     varchar(255) not null,
     ProductPrice    float        not null,
     QuantityInStock int          not null,
@@ -15,7 +15,7 @@ create table product
 
 create table category
 (
-    CategoryID   varchar(20)  not null primary key unique,
+    CategoryID   varchar(20)  not null primary key,
     CategoryName varchar(255) not null
 );
 
@@ -148,3 +148,15 @@ end //
 
 delimiter ;
 
+
+
+delimiter //
+create procedure  update_category (
+    in inputId varchar (20)
+)
+begin
+update product set CategoryID = inputId where CategoryID = inputId;
+update category set CategoryID = inputId where CategoryID = inputId;
+end //
+
+delimiter ;

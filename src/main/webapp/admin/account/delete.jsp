@@ -33,7 +33,7 @@
             <label for="receiver" class="form-label">Account Acess:</label>
             <c:set var = "accountAccess" scope = "session" value = "${account.accountAccess}"/>
             <c:if test = "${accountAccess==true}">
-                <input type="text" class="form-control" id="gender" name="accountAccess" value="<c:out value = "Admin"/>" disabled>
+                <input type="text" class="form-control" id="receiver" name="accountAccess" value="<c:out value = "Admin"/>" disabled>
 
             </c:if>
             <c:if test = "${accountAccess==false}">
@@ -50,13 +50,13 @@
         </div>
         <div class="mb-3">
             <label for="phoneNumber" class="form-label">PhoneNumber:</label>
-            <input type="text" class="form-control" id="phoneNumber" name="phoneNumber" value="${acount.phoneNumber}" disabled>
+            <input type="text" class="form-control" id="phoneNumber" name="phoneNumber" value="${account.phoneNumber}" disabled>
         </div>
         <div class="mb-3">
-            <label for="status" class="form-label">Gender:</label>
+            <label for="status1" class="form-label">Gender:</label>
             <c:set var = "gender" scope = "session" value = "${account.gender}"/>
             <c:if test = "${gender==true}">
-                <input type="text" class="form-control" id="gender" name="gender" value="<c:out value = "Male"/>" disabled>
+                <input type="text" class="form-control" id="status1"  name="gender" value="<c:out value = "Male"/>" disabled>
 
             </c:if>
             <c:if test = "${gender==false}">
