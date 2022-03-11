@@ -65,7 +65,7 @@ public class LoginServlet extends HttpServlet {
     }
 
     private void editAccount(HttpServletRequest request, HttpServletResponse response) throws IOException {
-        Account account;
+        
         String accountId = request.getParameter("accountId");
         String accountName = request.getParameter("accountName");
         String loginName = request.getParameter("loginName");
@@ -76,6 +76,7 @@ public class LoginServlet extends HttpServlet {
         boolean gender = Boolean.parseBoolean(request.getParameter("gender"));
         boolean status = Boolean.parseBoolean(request.getParameter("status"));
 
+        Account account = new Account(accountId,accountName,loginName,password,accountAccess,address,phoneNumber,gender,status);
         account = new Account(accountId,accountName,loginName,password,accountAccess,address,phoneNumber,gender,status);
         accountDao.updateAccountById(account);
 

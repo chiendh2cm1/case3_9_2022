@@ -14,6 +14,16 @@ public class Product {
     public Product() {
     }
 
+    public Product(String categoryId, String productName, float productPrice, int quantityInStock, String image, int status, String description) {
+        this.categoryId = categoryId;
+        this.productName = productName;
+        this.productPrice = productPrice;
+        this.quantityInStock = quantityInStock;
+        this.image = image;
+        this.status = status;
+        this.description = description;
+    }
+
     public Product(String productId, String categoryId, String productName, float productPrice, int quantityInStock, String image, int status, String description) {
         this.productId = productId;
         this.categoryId = categoryId;
@@ -119,7 +129,7 @@ public class Product {
                 ", image='" + image + '\'' +
                 ", status=" + status +
                 ", description='" + description + '\'' +
-                ", categoryName='" + categoryName + '\'' +
+//                ", categoryName='" + categoryName + '\'' +
                 '}';
     }
 }

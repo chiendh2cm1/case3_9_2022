@@ -28,10 +28,10 @@
 <%--HEADER--%>
 <jsp:include page="header.jsp"></jsp:include>
 <jsp:include page="header-infor.jsp"></jsp:include>
-
-
 <%--BODY--%>
+<div class="alert alert-success" role="alert">
 <h3 style="color: blue; width: 1500px; text-align: center">${announcementOrderSuccessful}</h3>
+</div>
 <section class="cart-total-page spad">
     <div class="container">
         <form action="/cart?action=updateCart" class="checkout-form" method="post">
@@ -55,9 +55,12 @@
                         <tbody>
                         <c:forEach items="${order.orderdetails}" var="orderdetail">
                             <tr>
-                                <td>${orderdetail.product.productId}</td>
-                                <td>${orderdetail.product.productName}</td>
-                                <td><p:formatNumber value="${orderdetail.price}"></p:formatNumber>₫</td>
+                                <td><input type="text" name="productId" value="${orderdetail.product.productId}" disabled></td>
+                                <td><input type="text" name="productName" value="${orderdetail.product.productName}" disabled></td>
+<%--                                <td>${orderdetail.product.productId}</td>--%>
+<%--                                <td>${orderdetail.product.productName}</td>--%>
+                                <td><input type="text" name="price" value="<p:formatNumber value="${orderdetail.price}"></p:formatNumber>₫" disabled></td>
+<%--                                <td> <p:formatNumber value="${orderdetail.price}"></p:formatNumber>₫</td>--%>
                                 <td style="width: 80px; height: 20px;">
                                     <i class="qty mt-5" style="height: 30px;">
                                         <input style="width: 54px;height: 20px;" type="number" class="count"
@@ -86,18 +89,18 @@
                             </td>
                         </tr>
                         <tr>
-                            <td colspan="4">Delivery Cost (2%) :</td>
+                            <td colspan="4">VAT (2%) :</td>
                             <td><p:formatNumber value="${totalOrder*2/100}"></p:formatNumber>₫</td>
                         </tr>
                         <tr>
-                            <td colspan="4">Final :</td>
+                            <td colspan="4">Payment :</td>
                             <td><p:formatNumber value="${totalOrder*102/100}"></p:formatNumber>₫</td>
                         </tr>
                         </tbody>
                     </table>
                 </div>
                 <a style="float: right; margin-bottom: 40px" href="/pagination" class="btn btn-outline-info"
-                   id="backToMain">Tiếp tục mua hàng</a>
+                   id="backToMain">Keep buying</a>
             </div>
         </form>
 
@@ -111,25 +114,25 @@
                     <table class="table table-hover"
                            style="margin-left: 20px; width: 1060px; margin-bottom: 50px; margin-top: 10px">
                         <tr>
-                            <th>Your Name*</th>
+                            <th>Your Name</th>
                             <td><input style="margin: 0; padding: 0; border: 0.5px solid lightgrey" name="fullName"
                                        type="text" placeholder="Full Name" value="${defaultAccountName}"></td>
                         </tr>
                         <tr>
-                            <th>Your Email*</th>
+                            <th>Your Email</th>
                             <td><input style="margin: 0; padding: 0; border: 0.5px solid lightgrey" name="email"
-                                       type="text" value="example@gmail.com"><i style="color:red;">${defaultEmail}</i>
+                                       type="text" placeholder="example@gmail.com"><i style="color:red;">${defaultEmail}</i>
                             </td>
                         </tr>
                         <tr>
-                            <th>Your Phone Number*</th>
+                            <th>Your Phone Number</th>
                             <td><input style="margin: 0; padding: 0; border: 0.5px solid lightgrey" name="phoneNumber"
-                                       type="text" value="${defaultPhoneNumber}"></td>
+                                       type="text" ></td>
                         </tr>
                         <tr>
-                            <th>Your Address*</th>
+                            <th>Your Address</th>
                             <td><input style="margin: 0; padding: 0; border: 0.5px solid lightgrey" name="address"
-                                       type="text" value="${defaultAddress}"></td>
+                                       type="text"></td>
                         </tr>
                         <tr>
                             <th>VAT</th>

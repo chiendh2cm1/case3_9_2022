@@ -30,16 +30,16 @@
             <input type="text" class="form-control" id="orderDate" name="loginName" value="" >
         </div>
         <div class="mb-3">
+            <label for="address" class="form-label">Password:</label>
+            <input type="text" class="form-control" id="address" name="password" value="">
+        </div>
+        <div class="mb-3">
             <label for="receiver" class="form-label">Account Access:</label>
             <select id="receiver" name="access" >
                 <option value="1">Admin</option>
                 <option value="0">Use</option>
             </select>
 
-        </div>
-        <div class="mb-3">
-            <label for="address" class="form-label">Password:</label>
-            <input type="text" class="form-control" id="address" name="password" value="">
         </div>
         <div class="mb-3">
             <label for="email" class="form-label">Address:</label>

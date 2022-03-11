@@ -1,4 +1,5 @@
 package com.codegym.dao;
+
 import com.codegym.connection.DBConnect;
 import com.codegym.model.Order;
 
@@ -12,10 +13,9 @@ public class OrderDao implements IOrderDao {
     public static final String GET_MAX_ORDER_ID_BY_ID_HEAD = "select * from chiendemo.orders where OrderID like ? order by OrderID desc limit 1;";
     public static final String ADD_NEW_ORDER_FROM_CART = "insert into chiendemo.orders(OrderID, AccountID, Receiver, Address, Email, PhoneNumber) value (?,?,?,?,?,?);";
     private static final String ADD_NEW_ORDER_PRODUCT_FROM_CART = "insert into chiendemo.orderdetail value (?,?,?,?,?);";
-    public static final String UPDATE_QUANTITY_AFTER_ORDER = "update product set QuantityInStock = ? where ProductID=?";
+    public static final String UPDATE_QUANTITY_AFTER_ORDER = "update chiendemo.product set QuantityInStock = ? where ProductID=?";
     private static final String SELECT_BY_ID = "select * from chiendemo.orders where orderID = ?;";
-    private static final String UPDATE_ORDER_BY_ID = "update chiendemo.orders set AccountID=?, OrderDate=?, Receiver=?, Address=?, Email=?, PhoneNumber=?, Status = ? where OrderID = ?;";
-
+    private static final String UPDATE_ORDER = "update chiendemo.orders set Receiver= ?, Address= ?, Email=?, PhoneNumber=? where OrderID = ?;";
 
     @Override
     public List<Order> getRecentOrderList() {
@@ -24,7 +24,7 @@ public class OrderDao implements IOrderDao {
         try {
             PreparedStatement preparedStatement = connection.prepareStatement(SELECT_ALL_ORDER);
             ResultSet resultSet = preparedStatement.executeQuery();
-            while (resultSet.next()){
+            while (resultSet.next()) {
                 Order order = new Order();
                 String orderId = resultSet.getString("OrderID");
                 String accountId = resultSet.getString("AccountID");
@@ -33,7 +33,7 @@ public class OrderDao implements IOrderDao {
                 String email = resultSet.getString("Email");
                 String phoneNumber = resultSet.getString("PhoneNumber");
 
-                orderList.add(new Order(orderId,accountId,receiver,address,email,phoneNumber));
+                orderList.add(new Order(orderId, accountId, receiver, address, email, phoneNumber));
             }
         } catch (SQLException throwables) {
             throwables.printStackTrace();
@@ -47,9 +47,9 @@ public class OrderDao implements IOrderDao {
         Connection connection = DBConnect.getConnection();
         try {
             PreparedStatement preparedStatement = connection.prepareStatement(GET_MAX_ORDER_ID_BY_ID_HEAD);
-            preparedStatement.setString(1,orderIdHead+"%");
+            preparedStatement.setString(1, orderIdHead + "%");
             ResultSet resultSet = preparedStatement.executeQuery();
-            while (resultSet.next()){
+            while (resultSet.next()) {
                 maxOrderIdByOrderIdHead = resultSet.getString("OrderID");
             }
         } catch (SQLException throwables) {
@@ -59,20 +59,38 @@ public class OrderDao implements IOrderDao {
     }
 
     @Override
-    public void addOrderFromCart(Order order) {
+    public void createOrder(Order order) {
         Connection connection = DBConnect.getConnection();
         try {
             PreparedStatement preparedStatement = connection.prepareStatement(ADD_NEW_ORDER_FROM_CART);
-            preparedStatement.setString(1,order.getOrderID());
-            preparedStatement.setString(2,order.getAccountID());
-            preparedStatement.setString(3,order.getReceiver());
-            preparedStatement.setString(4,order.getAddress());
-            preparedStatement.setString(5,order.getEmail());
-            preparedStatement.setString(6,order.getPhoneNumber());
+            preparedStatement.setString(1, order.getOrderID());
+            preparedStatement.setString(2, order.getAccountID());
+            preparedStatement.setString(3, order.getReceiver());
+            preparedStatement.setString(4, order.getAddress());
+            preparedStatement.setString(5, order.getEmail());
+            preparedStatement.setString(6, order.getPhoneNumber());
             preparedStatement.executeUpdate();
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
+    }
+
+
+    @Override
+    public boolean updateOrder(String orderId, Order order) {
+        Connection connection = DBConnect.getConnection();
+        try {
+            PreparedStatement ps = connection.prepareStatement(UPDATE_ORDER);
+            ps.setString(1, order.getReceiver());
+            ps.setString(2, order.getAddress());
+            ps.setString(3, order.getEmail());
+            ps.setString(4, order.getPhoneNumber());
+            ps.setString(5,order.getOrderID());
+            return ps.executeUpdate() > 0;
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return false;
     }
 
     @Override
@@ -80,11 +98,11 @@ public class OrderDao implements IOrderDao {
         Connection connection = DBConnect.getConnection();
         try {
             PreparedStatement preparedStatement = connection.prepareStatement(ADD_NEW_ORDER_PRODUCT_FROM_CART);
-            preparedStatement.setString(1,orderId);
-            preparedStatement.setString(2,productId);
-            preparedStatement.setString(3,String.valueOf(quantity));
-            preparedStatement.setString(4,String.valueOf(priceEach));
-            preparedStatement.setString(5,accountId);
+            preparedStatement.setString(1, orderId);
+            preparedStatement.setString(2, productId);
+            preparedStatement.setString(3, String.valueOf(quantity));
+            preparedStatement.setString(4, String.valueOf(priceEach));
+            preparedStatement.setString(5, accountId);
 
             preparedStatement.executeUpdate();
         } catch (SQLException throwables) {
@@ -105,30 +123,23 @@ public class OrderDao implements IOrderDao {
             throwables.printStackTrace();
         }
     }
+
     @Override
     public List<Order> viewAllOrder() {
         List<Order> orders = new ArrayList<>();
-        String orderID = "";
-        String accountID = "";
-        Date orderDate;
-        String receiver = "";
-        String address = "";
-        String email = "";
-        String phoneNumber = "";
-        int status = 0;
         try {
             Connection connection = DBConnect.getConnection();
             PreparedStatement preparedStatement = connection.prepareStatement(SELECT_ALL_ORDER);
             ResultSet rs = preparedStatement.executeQuery();
             while (rs.next()) {
-                orderID = rs.getString(1);
-                accountID = rs.getString(2);
-                orderDate = rs.getDate(3);
-                receiver = rs.getString(4);
-                address = rs.getString(5);
-                email = rs.getString(6);
-                phoneNumber = rs.getString(7);
-                status = rs.getInt(8);
+                String orderID = rs.getString(1);
+                String accountID = rs.getString(2);
+                Date orderDate = rs.getDate(3);
+                String receiver = rs.getString(4);
+                String address = rs.getString(5);
+                String email = rs.getString(6);
+                String phoneNumber = rs.getString(7);
+                int status = rs.getInt(8);
                 orders.add(new Order(orderID, accountID, orderDate, receiver, address, email, phoneNumber, status));
             }
         } catch (SQLException e) {
@@ -164,42 +175,45 @@ public class OrderDao implements IOrderDao {
     }
 
 
-    @Override
-    public void updateOder(String orderID, String accountID, String orderDate, String receiver, String address, String email, String phoneNumber, int status) {
-        Connection connection = DBConnect.getConnection();
-        try {
-            PreparedStatement ps = connection.prepareStatement(UPDATE_ORDER_BY_ID);
-            ps.setString(1, accountID);
-            ps.setString(2, orderDate);
-            ps.setString(3, receiver);
-            ps.setString(4, address);
-            ps.setString(5, email);
-            ps.setString(6, phoneNumber);
-            ps.setInt(7, status);
-            ps.setString(8, orderID);
-            ps.executeUpdate();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-    }
+
+
+//    @Override
+//    public void updateOder(String orderID, String accountID, String orderDate, String receiver, String address, String email, String phoneNumber, int status) {
+//        Connection connection = DBConnect.getConnection();
+//        try {
+//            PreparedStatement ps = connection.prepareStatement(UPDATE_ORDER);
+//            ps.setString(1, accountID);
+//            ps.setString(2, orderDate);
+//            ps.setString(3, receiver);
+//            ps.setString(4, address);
+//            ps.setString(5, email);
+//            ps.setString(6, phoneNumber);
+//            ps.setInt(7, status);
+//            ps.setString(8, orderID);
+//            ps.executeUpdate();
+//        } catch (SQLException e) {
+//            e.printStackTrace();
+//        }
+//    }
 
     @Override
-    public void deleteOder(String orderID) {
+    public boolean deleteOder(String orderID) {
         Connection connection = DBConnect.getConnection();
         try {
-            PreparedStatement ps = connection.prepareStatement("delete from atagvn.orders where OrderID = ?");
+            PreparedStatement ps = connection.prepareStatement("delete from chiendemo.orders where OrderID = ?");
             ps.setString(1, orderID);
-            ps.executeUpdate();
+            return ps.executeUpdate() > 0;
         } catch (SQLException e) {
             e.printStackTrace();
         }
+        return false;
     }
 
     @Override
     public void deleteOder_product(String orderID) {
         Connection connection = DBConnect.getConnection();
         try {
-            PreparedStatement ps = connection.prepareStatement("delete from atagvn.order_product where OrderID = ?");
+            PreparedStatement ps = connection.prepareStatement("delete from chiendemo.order_product where OrderID = ?");
             ps.setString(1, orderID);
             ps.executeUpdate();
         } catch (SQLException e) {

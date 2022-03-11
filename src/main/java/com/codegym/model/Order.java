@@ -37,7 +37,15 @@ public class Order implements Serializable {
         this.phoneNumber = phoneNumber;
         this.status = status;
     }
+    public Order(String orderID, Date orderDate, String receiver, String address, String email, String phoneNumber) {
+        this.orderID = orderID;
+        this.orderDate = orderDate;
+        this.receiver = receiver;
+        this.address = address;
+        this.email = email;
+        this.phoneNumber = phoneNumber;
 
+    }
 
     public String getOrderID() {
         return orderID;

@@ -7,7 +7,13 @@ public class Orderdetail {
     private float price;
 
     public Orderdetail() {
-        super();
+    }
+
+    public Orderdetail(String id, Product product, int quantity, float price) {
+        this.id = id;
+        this.product = product;
+        this.quantity = quantity;
+        this.price = price;
     }
 
     public String getId() {

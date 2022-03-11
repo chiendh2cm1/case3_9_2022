@@ -77,7 +77,7 @@
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a href=#" class="nav-link">
+                        <a href="/category" class="nav-link">
                             <i class="nav-icon fas fa-th"></i>
                             <p>
                                 Mangament Category
@@ -95,7 +95,7 @@
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a href="#" class="nav-link">
+                        <a href="/order" class="nav-link">
                             <i class="nav-icon fas fa-th"></i>
                             <p>
                                 Mangament Order
