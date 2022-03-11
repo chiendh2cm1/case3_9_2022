@@ -65,7 +65,7 @@ public class LoginServlet extends HttpServlet {
     }
 
     private void editAccount(HttpServletRequest request, HttpServletResponse response) throws IOException {
-        
+
         String accountId = request.getParameter("accountId");
         String accountName = request.getParameter("accountName");
         String loginName = request.getParameter("loginName");
