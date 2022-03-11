@@ -18,7 +18,7 @@ import java.util.List;
 @MultipartConfig
 @WebServlet(name = "AddProductServlet", urlPatterns = "/product")
 public class ProductServlet extends HttpServlet {
-    ProductDao productServiceImp = new ProductDao();
+    ProductDao productDao = new ProductDao();
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         action(request, response);
@@ -46,7 +46,7 @@ public class ProductServlet extends HttpServlet {
         String categoryId = request.getParameter("categoryId");
         List<Product> products = null;
         try {
-            products = productServiceImp.getListProductByCategoryId(categoryId);
+            products = productDao.getListProductByCategoryId(categoryId);
         } catch (SQLException e) {
             e.printStackTrace();
         }

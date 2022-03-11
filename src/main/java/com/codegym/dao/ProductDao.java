@@ -15,11 +15,11 @@ public class ProductDao implements IProductDao {
     private static final String SELECT_ALL_PRODUCT = "select * from chiendemo.product";
     private static final String SELECT_PRODUCT_BY_PRODUCTID = "select * from chiendemo.product where ProductID = ?";
     private static final String UPDATE_PRODUCT = "UPDATE chiendemo.product SET ProductName=?, ProductPrice=?,QuantityInStock=?,Status=?,Description = ? WHERE ProductID = ?";
-    private static final String CREATE_PRODUCT = "INSERT INTO atagvn.product(ProductID,CategoryID,ProductName,ProductPrice,QuantityInStock,Image,Status,Description) VALUES (?,?,?,?,?,?,?,?);";
+    private static final String CREATE_PRODUCT = "INSERT INTO chiendemo.product(ProductID,CategoryID,ProductName,ProductPrice,QuantityInStock,Image,Status,Description) VALUES (?,?,?,?,?,?,?,?);";
     public static final String SELECT_PRODUCT_BY_CATEGORYID = "select * from chiendemo.product where CategoryID = ?";
     public static final String SELECT_FRODUCT_BY_NAME = "select productId, categoryName, ProductName, ProductPrice, QuantityInStock,Image,Status,Description from product join category on product.CategoryID = category.categoryId where ProductName like ?";
     public static final String SQL_SELECT_ALL_PRODUCT = "select productId, categoryName, ProductName, ProductPrice, QuantityInStock,Image,Status,Description \n" +
-            "from product join category on product.CategoryID = category.categoryId;";
+            "from product join category on product.CategoryID = category.categoryId order by ProductPrice;";
     Connection conn = null;
     PreparedStatement ps = null;
     ResultSet rs = null;

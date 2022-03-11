@@ -44,6 +44,16 @@ public class CategoryDao1 implements ICategoryDao{
     }
 
     @Override
+    public boolean updateCategory(String id, Category category) {
+        return false;
+    }
+
+    @Override
+    public boolean deleteCategoryUsingProcedure(String id) {
+        return false;
+    }
+
+    @Override
     public boolean updateCategory(Category category) {
         return false;
     }

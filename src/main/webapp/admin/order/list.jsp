@@ -1,10 +1,4 @@
-<%--
-  Created by IntelliJ IDEA.
-  User: Dell
-  Date: 3/7/2022
-  Time: 11:31 AM
-  To change this template use File | Settings | File Templates.
---%>
+
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <html>
@@ -38,21 +32,12 @@
         <a href="index3.html" class="brand-link">
             <img src="dist/img/AdminLTELogo.png" alt="AdminLTE Logo" class="brand-image img-circle elevation-3"
                  style="opacity: .8">
-            <span class="brand-text font-weight-light">AdminLTE 3</span>
+            <span class="brand-text font-weight-light">Admin</span>
         </a>
 
         <!-- Sidebar -->
         <div class="sidebar">
             <!-- Sidebar user panel (optional) -->
-            <div class="user-panel mt-3 pb-3 mb-3 d-flex">
-                <div class="image">
-                    <img src="dist/img/user2-160x160.jpg" class="img-circle elevation-2" alt="User Image">
-                </div>
-                <div class="info">
-                    <a href="#" class="d-block">Alexander Pierce</a>
-                </div>
-            </div>
-
             <!-- SidebarSearch Form -->
             <div class="form-inline">
                 <div class="input-group" data-widget="sidebar-search">
@@ -76,17 +61,15 @@
                         <a href="/products" class="nav-link">
                             <i class="nav-icon fas fa-th"></i>
                             <p>
-                                Mangament Product
-                                <span class="right badge badge-danger">New</span>
+                                Management Product
                             </p>
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a href="/Category" class="nav-link">
+                        <a href="/category" class="nav-link">
                             <i class="nav-icon fas fa-th"></i>
                             <p>
-                                Mangament Category
-                                <span class="right badge badge-danger">New</span>
+                                Management Category
                             </p>
                         </a>
                     </li>
@@ -94,8 +77,7 @@
                         <a href="/login" class="nav-link">
                             <i class="nav-icon fas fa-th"></i>
                             <p>
-                                Mangament Account
-                                <span class="right badge badge-danger">New</span>
+                                Management Account
                             </p>
                         </a>
                     </li>
@@ -103,12 +85,7 @@
                         <a href="/order" class="nav-link">
                             <i class="nav-icon fas fa-th"></i>
                             <p>
-<<<<<<< HEAD
                                 Management order
-=======
-                                Management Order
->>>>>>> 93e5cc16bf7caafdcd67a75f7f8e17459afdb2a7
-                                <span class="right badge badge-danger">New</span>
                             </p>
                         </a>
                     </li>
@@ -124,12 +101,12 @@
             <div class="container-fluid">
                 <div class="row mb-2">
                     <div class="col-sm-6">
-                        <h1 class="m-0">Dashboard</h1>
+                        <h1 class="m-0">List order</h1>
                     </div><!-- /.col -->
                     <div class="col-sm-6">
                         <ol class="breadcrumb float-sm-right">
                             <li class="breadcrumb-item"><a href="/pagination">Home</a></li>
-                            <li class="breadcrumb-item active">Dashboard v1</li>
+                            <li class="breadcrumb-item active">Sunflower</li>
                         </ol>
                     </div><!-- /.col -->
                 </div><!-- /.row -->
@@ -140,7 +117,6 @@
         <!-- Main content -->
         <section class="content">
             <div class="container-fluid">
-                <h1>Danh sách đơn hàng </h1>
                 <div class="alert alert-success" role="alert">${thongBao}</div>
                 <div class="alert alert-success" role="alert">${thongBao2}</div>
                 <table class="table table-bordered">
