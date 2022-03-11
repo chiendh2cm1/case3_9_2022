@@ -17,7 +17,7 @@ public class ProductDao implements IProductDao {
     private static final String UPDATE_PRODUCT = "UPDATE chiendemo.product SET ProductName=?, ProductPrice=?,QuantityInStock=?,Status=?,Description = ? WHERE ProductID = ?";
     private static final String CREATE_PRODUCT = "INSERT INTO atagvn.product(ProductID,CategoryID,ProductName,ProductPrice,QuantityInStock,Image,Status,Description) VALUES (?,?,?,?,?,?,?,?);";
     public static final String SELECT_PRODUCT_BY_CATEGORYID = "select * from chiendemo.product where CategoryID = ?";
-    public static final String SELECT_FRODUCT_BY_NAME = "select * from chiendemo.product where ProductName like ?";
+    public static final String SELECT_FRODUCT_BY_NAME = "select productId, categoryName, ProductName, ProductPrice, QuantityInStock,Image,Status,Description from product join category on product.CategoryID = category.categoryId where ProductName like ?";
     public static final String SQL_SELECT_ALL_PRODUCT = "select productId, categoryName, ProductName, ProductPrice, QuantityInStock,Image,Status,Description \n" +
             "from product join category on product.CategoryID = category.categoryId;";
     Connection conn = null;
@@ -180,14 +180,37 @@ public class ProductDao implements IProductDao {
             ps.setString(6, product.getProductId());
             return ps.executeUpdate() > 0;
         } catch (Exception e) {
-
+            e.printStackTrace();
         }
         return false;
     }
 
+    public boolean updateById(String productId, Product product) {
+        conn = DBConnect.getConnection();
+        try {
+            ps = conn.prepareStatement("UPDATE product SET ProductID = ?, CategoryID = ?, ProductName = ?, ProductPrice = ?, QuantityInStock = ?, Image = ?, Status = ?, Description = ? WHERE productId = ?");
+            ps.setString(1, product.getProductId());
+            ps.setString(2, product.getCategoryId());
+            ps.setString(3, product.getProductName());
+            ps.setFloat(4, product.getProductPrice());
+            ps.setInt(5, product.getQuantityInStock());
+            ps.setString(6, product.getImage());
+            ps.setInt(7, product.getStatus());
+            ps.setString(8, product.getDescription());
+            ps.setString(9, productId);
+            return ps.executeUpdate() > 0;
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
+
+
     @Override
     public boolean deleteProduct(String productId) throws SQLException {
-        return false;
+        ps = conn.prepareStatement("DELETE FROM  product Where ProductID = ?");
+        ps.setString(1, productId);
+        return ps.executeUpdate() > 0;
     }
 
     @Override
@@ -206,9 +229,34 @@ public class ProductDao implements IProductDao {
             String idmage = rs.getString("Image");
             int status = rs.getInt("Status");
             String des = rs.getString("Description");
-
             productList.add(new Product(id, categoryId, productName, price, quantity, idmage, status, des));
         }
         return productList;
+    }
+
+    public List<Product> findAllProductByName(String name) {
+        List<Product> products = new ArrayList<>();
+
+        try {
+            conn = DBConnect.getConnection();
+            ps = conn.prepareStatement(SELECT_FRODUCT_BY_NAME);
+            ps.setString(1, name);
+            rs = ps.executeQuery();
+            while (rs.next()) {
+                String id = rs.getString("productId");
+                String categoryName = rs.getString("categoryName");
+                String productName = rs.getString("ProductName");
+                float price = rs.getFloat("ProductPrice");
+                int quantity = rs.getInt("QuantityInStock");
+                String image = rs.getString("Image");
+                int status = rs.getInt("Status");
+                String description = rs.getString("Description");
+                Product product = new Product(id, productName, price, quantity, image, status, description, categoryName);
+                products.add(product);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return products;
     }
 }

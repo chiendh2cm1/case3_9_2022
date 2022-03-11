@@ -11,6 +11,8 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import static java.lang.Boolean.parseBoolean;
+
 public class AccountDao implements IAccountDao {
     public static final String FIND_ACCOUNT_BY_LOGIN_NAME = "select * from chiendemo.account where LoginName=?;";
     public static final String FIND_MAX_ACCOUNT_ID = "select * from chiendemo.account where AccountID like 'KH%' order by AccountID desc limit 1;";
@@ -18,7 +20,7 @@ public class AccountDao implements IAccountDao {
     public static final String SELECT_FROM_ACCOUNT = "select * from chiendemo.account;";
     public static final String SELECT_BY_ID = "select * from chiendemo.account where AccountID = ?;";
     public static final String UPDATE_ACCOUNT_BY_ID = "update chiendemo.account set AccountName = ?, LoginName=?,Password=?,AccountAccess=?,Address=?,PhoneNumber=?,Gender=?,Status=? where AccountID = ?;";
-    public static final String DELETE_ACCOUNT_BY_ID = "delete from atagvn.account where AccountID = ?";
+    public static final String DELETE_ACCOUNT_BY_ID = "delete from chiendemo.account where AccountID = ?";
     @Override
     public Account findByLoginName(String loginName) {
         Connection connection = DBConnect.getConnection();
@@ -36,15 +38,16 @@ public class AccountDao implements IAccountDao {
                 String accountAccess = resultSet.getString("AccountAccess");
                 String address = resultSet.getString("Address");
                 String phoneNumber = resultSet.getString("PhoneNumber");
-                boolean gender = Boolean.parseBoolean(resultSet.getString("Gender"));
-                boolean status = Boolean.parseBoolean(resultSet.getString("Status"));
+                boolean gender = parseBoolean(resultSet.getString("Gender"));
+                boolean status = parseBoolean(resultSet.getString("Status"));
 
                 account = new Account(accountId, accountName, loginName, password,accountAccess, address, phoneNumber, gender, status);
             }
+            return account;
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
-        return account;
+        return null;
     }
 
     @Override
@@ -56,7 +59,7 @@ public class AccountDao implements IAccountDao {
             preparedStatement.setString(2, account.getAccountName());
             preparedStatement.setString(3, account.getLoginName());
             preparedStatement.setString(4, account.getPassword());
-            preparedStatement.setString(5, account.getAccountAccess());
+            preparedStatement.setBoolean(5, Boolean.parseBoolean(account.getAccountAccess()));
             preparedStatement.setString(6, account.getAddress());
             preparedStatement.setString(7, account.getPhoneNumber());
             preparedStatement.setBoolean(8, account.isGender());
@@ -111,12 +114,23 @@ public class AccountDao implements IAccountDao {
                 phoneNumber = rs.getString(7);
                 gender = rs.getBoolean(8);
                 status = rs.getBoolean(9);
+
                 accounts.add(new Account(accountID, accountName, loginName, password, accountAccess, address, phoneNumber, gender, status));
             }
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
         return accounts;
+    }
+
+    private String GendertoString(Boolean genderBit) {
+        String gender;
+        if(genderBit){
+            gender="Male";
+        } else{
+            gender="Female";
+        }
+        return gender;
     }
 
     @Override
@@ -135,18 +149,19 @@ public class AccountDao implements IAccountDao {
                 String accountName = resultSet.getString("AccountName");
                 String loginName = resultSet.getString("LoginName");
                 String password = resultSet.getString("Password");
-                String accountAccess = resultSet.getString("AccountAccess");
+                String accountAccess = String.valueOf(resultSet.getBoolean("AccountAccess"));
                 String address = resultSet.getString("Address");
                 String phoneNumber = resultSet.getString("PhoneNumber");
-                boolean gender = Boolean.parseBoolean(resultSet.getString("Gender"));
-                boolean status = Boolean.parseBoolean(resultSet.getString("Status"));
+                boolean gender = parseBoolean(resultSet.getString("Gender"));
+                boolean status = parseBoolean(resultSet.getString("Status"));
 
                 account = new Account(accountId, accountName, loginName, password, accountAccess, address, phoneNumber, gender, status);
             }
+            return account;
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
-        return account;
+        return null;
     }
 
     @Override
@@ -157,7 +172,7 @@ public class AccountDao implements IAccountDao {
             ps.setString(1, account.getAccountName());
             ps.setString(2, account.getLoginName());
             ps.setString(3, account.getPassword());
-            ps.setString(4, account.getAccountAccess());
+            ps.setBoolean(4, Boolean.parseBoolean(account.getAccountAccess()));
             ps.setString(5, account.getAddress());
             ps.setString(6, account.getPhoneNumber());
             ps.setBoolean(7, account.isGender());

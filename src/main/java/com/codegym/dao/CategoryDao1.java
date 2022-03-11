@@ -29,8 +29,8 @@ public class CategoryDao1 implements ICategoryDao{
     }
 
     @Override
-    public void deleteCategory(String id) {
-
+    public boolean deleteCategory(String id) {
+        return false;
     }
 
     @Override
@@ -39,12 +39,12 @@ public class CategoryDao1 implements ICategoryDao{
     }
 
     @Override
-    public void addCategory(Category category) {
-
+    public boolean addCategory(Category category) {
+        return false;
     }
 
     @Override
-    public void updateCategory(Category category) {
-
+    public boolean updateCategory(Category category) {
+        return false;
     }
 }

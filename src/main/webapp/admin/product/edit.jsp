@@ -48,17 +48,15 @@
 
             <!-- SidebarSearch Form -->
             <div class="form-inline">
-                <form action="/products">
-                    <div class="input-group" data-widget="sidebar-search">
-                        <input class="form-control form-control-sidebar" type="search" placeholder="Search"
-                               aria-label="Search" name="q">
-                        <div class="input-group-append">
-                            <button class="btn btn-sidebar">
-                                <i class="fas fa-search fa-fw"></i>
-                            </button>
-                        </div>
+                <div class="input-group" data-widget="sidebar-search">
+                    <input class="form-control form-control-sidebar" type="search" placeholder="Search"
+                           aria-label="Search">
+                    <div class="input-group-append">
+                        <button class="btn btn-sidebar">
+                            <i class="fas fa-search fa-fw"></i>
+                        </button>
                     </div>
-                </form>
+                </div>
             </div>
 
             <!-- Sidebar Menu -->
@@ -68,7 +66,7 @@
                     <!-- Add icons to the links using the .nav-icon class
                          with font-awesome or any other icon font library -->
                     <li class="nav-item">
-                        <a href="/products" class="nav-link">
+                        <a href="products" class="nav-link">
                             <i class="nav-icon fas fa-th"></i>
                             <p>
                                 Mangament Product
@@ -131,49 +129,53 @@
         <!-- Main content -->
         <section class="content">
             <div class="container-fluid">
-                <h1>List Product</h1>
-                <div class="alert alert-success" role="alert">${alertCreate}</div>
-                <div class="alert alert-success" role="alert">${alertEdit}</div>
-                <div class="alert alert-success" role="alert">${alertDelete}</div>
-                <a class="btn btn-primary float-end" href="/products?action=create">Create new product</a><br>
-                <table class="table table-bordered">
-                    <thead>
-                    <tr>
-                        <th scope="col">#</th>
-                        <th scope="col">Category</th>
-                        <th scope="col">Name</th>
-                        <th scope="col">Price</th>
-                        <th scope="col">Quantity</th>
-                        <th scope="col">Image</th>
-                        <th scope="col">Status</th>
-                        <th scope="col">Description</th>
-                        <th colspan="2"></th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    <c:forEach var="product" items="${products}" varStatus="loop">
-                        <tr>
-                            <th scope="row">${loop.count}</th>
-                            <td>${product.getCategoryName()}</td>
-                            <td>
-                                <a href="/products?action=view&id=${product.getProductId()}">${product.getProductName()}</a>
-                            </td>
-                            <td>${product.getProductPrice()}</td>
-                            <td>${product.getQuantityInStock()}</td>
-                            <td><img src="${product.getImage()}" alt="Error" width="50" height="50"></td>
-                            <td>${product.getStatus()}</td>
-                            <td>${product.getDescription()}</td>
-                            <td>
-                                <a class="btn btn-info" href="/products?action=edit&id=${product.getProductId()}">
-                                    <i class="fas fa-edit"></i>
-                                </a>
-                            </td>
-                            <td><a class="btn btn-danger" href="/products?action=delete&id=${product.getProductId()}"><i
-                                    class="fas fa-trash"></i></a></td>
-                        </tr>
-                    </c:forEach>
-                    </tbody>
-                </table>
+                <h1>Edit product</h1>
+                <form action="/products?action=edit&id=${product.getProductId()}" method="post">
+                    <div class="mb-3">
+                        <label for="productId" class="form-label">ProductId</label>
+                        <input name="productId" type="text" class="form-control" id="productId" value="${product.getProductId()}" >
+                    </div>
+                    <div class="mb-3">
+                        <label for="category" class="form-label">Category</label>
+                        <select class="form-control" id="category" name="categoryId">
+                            <c:forEach var="category" items="${categories}">
+                                <c:choose>
+                                    <c:when test="${category.getCategoryId()  == product.getCategoryId()}">
+                                        <option value="${category.getCategoryId()}" selected>${category.getCategoryName()}</option>
+                                    </c:when>
+                                    <c:otherwise>
+                                        <option value="${category.getCategoryId()}">${category.getCategoryName() }</option>
+                                    </c:otherwise>
+                                </c:choose>
+                            </c:forEach>
+                        </select>
+                    </div>
+                    <div class="mb-3">
+                        <label for="name" class="form-label">Name</label>
+                        <input name="name" type="text" class="form-control" id="name" value="${product.getProductName()}" >
+                    </div>
+                    <div class="mb-3">
+                        <label for="email" class="form-label">Price</label>
+                        <input name="price" type="text" class="form-control" id="email" value="${product.getProductPrice()}" >
+                    </div>
+                    <div class="mb-3">
+                        <label for="quantity" class="form-label">Quantity</label>
+                        <input name="quantity" type="text" class="form-control" id="quantity" value="${product.getQuantityInStock()}" >
+                    </div>
+                    <div class="mb-3">
+                        <label for="image" class="form-label">Image</label>
+                        <input name="image" type="text" class="form-control" id="image" value="${product.getImage()}" >
+                    </div>
+                    <div class="mb-3">
+                        <label for="status" class="form-label">Status</label>
+                        <input name="status" type="text" class="form-control" id="status" value="${product.getStatus()}" >
+                    </div>
+                    <div class="mb-3">
+                        <label for="country" class="form-label">Description</label>
+                        <input name="description" type="text" class="form-control" id="country" value="${product.getDescription()}" >
+                    </div>
+                    <button type="submit" class="btn btn-warning">Edit</button>
+                </form>
             </div><!-- /.container-fluid -->
         </section>
         <!-- /.content -->

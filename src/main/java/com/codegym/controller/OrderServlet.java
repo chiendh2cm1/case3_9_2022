@@ -32,6 +32,10 @@ public class OrderServlet extends HttpServlet {
                 break;
             case "deleteGet":
                 showdeleteForm(request, response);
+                break;
+            case "view":
+                showOrdertail(request, response);
+                break;
             default:
                 ShowListOrder(request, response);
                 break;
@@ -62,6 +66,15 @@ public class OrderServlet extends HttpServlet {
         requestDispatcher.forward(request, response);
     }
 
+    private void showOrdertail(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        String orderId = request.getParameter("id");
+        Order order = orderService.findById(orderId);
+        request.setAttribute("order", order);
+        RequestDispatcher requestDispatcher = request.getRequestDispatcher("admin/order/view.jsp");
+        requestDispatcher.forward(request, response);
+    }
+
+
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String action = request.getParameter("action");
@@ -75,16 +88,7 @@ public class OrderServlet extends HttpServlet {
             case "editPost":
                 updateProduct(request, response);
                 break;
-            case "view":
-                showOrdertail(request, response);
-                break;
-
-
         }
-    }
-
-    private void showOrdertail(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
     }
 
     private void updateProduct(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

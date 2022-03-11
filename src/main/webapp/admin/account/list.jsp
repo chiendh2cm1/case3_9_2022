@@ -1,10 +1,17 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%--
   Created by IntelliJ IDEA.
-  User: Dell
-  Date: 3/8/2022
-  Time: 11:18 AM
+  User: macbook
+  Date: 10/03/2022
+  Time: 08:22
   To change this template use File | Settings | File Templates.
 --%>
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<html>
+<head>
+    <title>Title</title>
+</head>
+<body>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
@@ -68,7 +75,7 @@
                     <!-- Add icons to the links using the .nav-icon class
                          with font-awesome or any other icon font library -->
                     <li class="nav-item">
-                        <a href="/products" class="nav-link">
+                        <a href="#" class="nav-link">
                             <i class="nav-icon fas fa-th"></i>
                             <p>
                                 Mangament Product
@@ -95,7 +102,7 @@
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a href="/order" class="nav-link">
+                        <a href="#" class="nav-link">
                             <i class="nav-icon fas fa-th"></i>
                             <p>
                                 Mangament Order
@@ -109,7 +116,69 @@
         </div>
         <!-- /.sidebar -->
     </aside>
+    <div class = "content-wrapper">
+        <div class = "content-header"></div>
+        <section class="content">
+            <div class = "container-fluid">
+                <div class ="row mb-2">
+
+                </div>
+                <h2>Danh sách tài khoản</h2>
+                <a href="/login?action=create">Tạo tài khoản</a>
+                <table class = "table table-bordered">
+                    <th>AccountID</th>
+                    <th>AccountName</th>
+                    <th>LoginName</th>
+                    <th>Password</th>
+                    <th>AccountAccess</th>
+                    <th>Address</th>
+                    <th>PhoneNumber</th>
+                    <th>Gender</th>
+
+                    <th colspan="2"></th>
+                    <c:forEach var="account"  items="${accounts}">
+                        <tr>
+                            <td>${account.accountId}</td>
+                            <td>${account.accountName}</td>
+                            <td>${account.loginName}</td>
+                            <td>${account.password}</td>
+
+                            <c:set var = "accountAccess" scope = "session" value = "${account.accountAccess}"/>
+                            <c:if test = "${accountAccess==true}">
+                                <td><c:out value = "Admin"/></td>
+                            </c:if>
+                            <c:if test = "${accountAccess==false}">
+                                <td><c:out value = "User"/></td>
+                            </c:if>
+
+                            <td>${account.address}</td>
+                            <td>${account.phoneNumber}</td>
+
+                            <c:set var = "gender" scope = "session" value = "${account.gender}"/>
+                                <c:if test = "${gender==true}">
+                                    <td><c:out value = "Male"/></td>
+                                </c:if></td>
+                                <c:if test = "${gender==false}">
+                                    <td><c:out value = "Female"/></td>
+                                 </c:if>
+
+
+                            <td><a href="/login?action=edit&accountId=${account.accountId}"><button class="btn btn-primary">Edit</button></a></td>
+                            <td><a href="/login?action=delete&accountId=${account.accountId}"><button class="btn btn-danger">Delete</button></a></td>
+                        </tr>
+
+                    </c:forEach>
+                </table>
+            </div>
+        </section>
+    </div>
+
+
+
 </div>
 </body>
 </html>
 
+
+</body>
+</html>
