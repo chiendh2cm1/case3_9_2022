@@ -86,12 +86,12 @@ public class OrderServlet extends HttpServlet {
                 deleteOrder(request, response);
                 break;
             case "editPost":
-                updateProduct(request, response);
+                updateOrder(request, response);
                 break;
         }
     }
 
-    private void updateProduct(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    private void updateOrder(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String thongBao = "Order Updated Successfully";
         String id = request.getParameter("id");
         String acountId = request.getParameter("accountId");

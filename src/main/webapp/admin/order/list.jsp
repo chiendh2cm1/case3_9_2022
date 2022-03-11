@@ -103,7 +103,7 @@
                         <a href="/order" class="nav-link">
                             <i class="nav-icon fas fa-th"></i>
                             <p>
-                                Order Account
+                                Management Order
                                 <span class="right badge badge-danger">New</span>
                             </p>
                         </a>
@@ -155,7 +155,7 @@
                     <tbody>
                     <c:forEach var="order" items="${orders}">
                         <tr>
-                            <td><a href="/order?action=view&id=${order.orderID}">${order.orderID}</a></td>
+                            <td><a href="/order?action=view&id=${order.orderID}">${order.orderID}(detail)</a></td>
                             <td>${order.accountID}</td>
                             <td>${order.orderDate}</td>
                             <td>${order.receiver}</td>
