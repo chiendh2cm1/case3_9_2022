@@ -4,10 +4,7 @@ package com.codegym.dao;
 import com.codegym.connection.DBConnect;
 import com.codegym.model.Account;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -21,6 +18,7 @@ public class AccountDao implements IAccountDao {
     public static final String SELECT_BY_ID = "select * from chiendemo.account where AccountID = ?;";
     public static final String UPDATE_ACCOUNT_BY_ID = "update chiendemo.account set AccountName = ?, LoginName=?,Password=?,AccountAccess=?,Address=?,PhoneNumber=?,Gender=?,Status=? where AccountID = ?;";
     public static final String DELETE_ACCOUNT_BY_ID = "delete from chiendemo.account where AccountID = ?";
+    public static final String JDBC_DELETE_ACCOUNT_BY_ID = "call delete_account(?)";
     @Override
     public Account findByLoginName(String loginName) {
         Connection connection = DBConnect.getConnection();
@@ -186,10 +184,12 @@ public class AccountDao implements IAccountDao {
     @Override
     public void deleteAccountById(String accountId) {
         Connection conn = DBConnect.getConnection();
+        CallableStatement cstmt = null;
         try {
-            PreparedStatement ps = conn.prepareStatement(DELETE_ACCOUNT_BY_ID);
-            ps.setString(1,accountId);
-            ps.executeUpdate();
+
+            cstmt = conn.prepareCall(JDBC_DELETE_ACCOUNT_BY_ID);
+            cstmt.setString(1,accountId);
+            cstmt.executeUpdate();
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
