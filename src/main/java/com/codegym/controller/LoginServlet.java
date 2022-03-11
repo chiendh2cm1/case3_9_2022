@@ -92,7 +92,7 @@ public class LoginServlet extends HttpServlet {
         System.out.println(maxAccountId.charAt(2) + 1);
         Account accountFindOut = accountDao.findByLoginName(username);
         boolean matchUserName = username.matches("^(?=.*[A-Za-z])(?=.*\\d)[A-Za-z\\d]{8,}$");
-        boolean matchPassword = password.matches("^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)[a-zA-Z\\d]{8,}$");  //Tối thiểu tám ký tự, ít nhất một chữ cái viết hoa, một chữ cái viết thường và một số
+        boolean matchPassword = password.matches("^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)[a-zA-Z\\d]{8,}$");
         boolean matchRetypePassword = password.equals(reTypePassword);
         boolean matchPhoneNumber = phoneNumber.matches("[0-9]{10,11}");
 

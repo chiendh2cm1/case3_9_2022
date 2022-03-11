@@ -82,7 +82,7 @@
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a href="/Category" class="nav-link">
+                        <a href="#" class="nav-link">
                             <i class="nav-icon fas fa-th"></i>
                             <p>
                                 Mangament Category
@@ -91,7 +91,7 @@
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a href="#" class="nav-link">
+                        <a href="/Category" class="nav-link">
                             <i class="nav-icon fas fa-th"></i>
                             <p>
                                 Mangament Account
@@ -136,40 +136,33 @@
         <!-- Main content -->
         <section class="content">
             <div class="container-fluid">
-                <h1>Danh sách đơn hàng </h1>
+                <h1>Danh sách danh mục </h1>
+                <a class="btn btn-primary float-end" href="/category?action=create">Tạo mới sản phẩm</a>
                 <div class="alert alert-success" role="alert">${thongBao}</div>
                 <div class="alert alert-success" role="alert">${thongBao2}</div>
                 <table class="table table-bordered">
                     <thead>
                     <tr>
-                        <th scope="col">Order ID</th>
-                        <th scope="col">Customer ID</th>
-                        <th scope="col">Order Date</th>
-                        <th scope="col">Receiver</th>
-                        <th scope="col">Address</th>
-                        <th scope="col">Customer imail</th>
-                        <th scope="col">Customer PhoneNumber</th>
+                        <th scope="col">Category ID:</th>
+                        <th scope="col">Category Name: </th>
                         <th colspan="2"></th>
                     </tr>
                     </thead>
                     <tbody>
-                    <c:forEach var="order" items="${orders}">
+                    <c:forEach var="category" items="${categories}">
                         <tr>
-                            <td><a href="/order?action=view&id=${order.orderID}">${order.orderID}</a></td>
-                            <td>${order.accountID}</td>
-                            <td>${order.orderDate}</td>
-                            <td>${order.receiver}</td>
-                            <td>${order.address}</td>
-                            <td>${order.email}</td>
-                            <td>${order.phoneNumber}</td>
-
+                            <td><a href="/category?action=view&id=${category.categoryId}">${category.categoryId}</a></td>
+                            <td>${category.categoryName}</td>
                             <td>
-                                <a class="btn btn-info" href="/order?action=editGet&id=${order.orderID}">
+                                <a class="btn btn-info" href="/category?action=editGet&id=${category.categoryId}">
                                     <i class="fas fa-edit"></i>
                                 </a>
                             </td>
-                            <td><a class="btn btn-danger" href="/order?action=deleteGet&id=${order.orderID}"><i
-                                    class="fas fa-trash"></i></a></td>
+                            <td>
+                                <a class="btn btn-danger" href="/category?action=deleteGet&id=${category.categoryId}"><i
+                                    class="fas fa-trash"></i>
+                                </a>
+                            </td>
                         </tr>
                     </c:forEach>
                     </tbody>

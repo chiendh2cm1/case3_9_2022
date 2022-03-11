@@ -7,8 +7,10 @@ import java.util.List;
 
 public interface ICategoryDao {
     public List<Category> getListCategory() throws SQLException;
-    public void deleteCategory(String id);
+    public boolean deleteCategory(String id);
     public Category getCategory(String categoryId) throws SQLException;
-    public void addCategory(Category category);
-    public void updateCategory (Category category);
+    public boolean addCategory(Category category);
+    public boolean updateCategory (String id, Category category);
+    boolean deleteCategoryUsingProcedure(String id);
+
 }
