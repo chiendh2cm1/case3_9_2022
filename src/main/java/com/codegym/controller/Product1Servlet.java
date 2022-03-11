@@ -11,6 +11,7 @@ import javax.servlet.*;
 import javax.servlet.http.*;
 import javax.servlet.annotation.*;
 import java.io.IOException;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -43,7 +44,12 @@ public class Product1Servlet extends HttpServlet {
     }
 
     private void showEditProductForm(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        List<Category> categories = categoryService.findAll();
+        List<Category> categories = null;
+        try {
+            categories = categoryService.findAll();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
         request.setAttribute("categories", categories);
         String productId = request.getParameter("id");
         Product product = productService.findById(productId);
@@ -53,7 +59,12 @@ public class Product1Servlet extends HttpServlet {
     }
 
     private void showDeleteProductForm(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        List<Category> categories = categoryService.findAll();
+        List<Category> categories = null;
+        try {
+            categories = categoryService.findAll();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
         request.setAttribute("categories", categories);
         String productId = request.getParameter("id");
         Product product = productService.findById(productId);
@@ -63,14 +74,24 @@ public class Product1Servlet extends HttpServlet {
     }
 
     private void showCreateProductForm(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        List<Category> categories = categoryService.findAll();
+        List<Category> categories = null;
+        try {
+            categories = categoryService.findAll();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
         request.setAttribute("categories", categories);
         RequestDispatcher requestDispatcher = request.getRequestDispatcher("admin/product/create.jsp");
         requestDispatcher.forward(request, response);
     }
 
     private void showAllProduct(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        List<Product> products = productService.findAll();
+        List<Product> products = null;
+        try {
+            products = productService.findAll();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
         String q = request.getParameter("q");
         if (q != null) {
             products = productService.findAllProductByName(q);
@@ -117,7 +138,12 @@ public class Product1Servlet extends HttpServlet {
             alertEdit = "Edit fail";
         }
         request.setAttribute("alertEdit", alertEdit);
-        List<Product> products = productService.findAll();
+        List<Product> products = null;
+        try {
+            products = productService.findAll();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
         request.setAttribute("products", products);
         RequestDispatcher requestDispatcher = request.getRequestDispatcher("/admin/product/list.jsp");
         try {
@@ -137,7 +163,12 @@ public class Product1Servlet extends HttpServlet {
             alertDelete = "Delete Fail";
         }
         request.setAttribute("alertDelete", alertDelete);
-        List<Product> products = productService.findAll();
+        List<Product> products = null;
+        try {
+            products = productService.findAll();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
         request.setAttribute("products", products);
         RequestDispatcher requestDispatcher = request.getRequestDispatcher("/admin/product/list.jsp");
         try {
@@ -165,7 +196,12 @@ public class Product1Servlet extends HttpServlet {
             alertCreate = "Create fail";
         }
         request.setAttribute("alertCreate", alertCreate);
-        List<Product> products = productService.findAll();
+        List<Product> products = null;
+        try {
+            products = productService.findAll();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
         request.setAttribute("products", products);
         RequestDispatcher requestDispatcher = request.getRequestDispatcher("/admin/product/list.jsp");
         try {

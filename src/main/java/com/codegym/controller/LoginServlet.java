@@ -53,7 +53,7 @@ public class LoginServlet extends HttpServlet {
         boolean status = true;
 
 
-        Account account = new Account(accountId,accountName,loginName,accountAccess,password,address,phoneNumber,gender,status);
+        Account account = new Account(accountId,accountName,loginName,password,accountAccess,address,phoneNumber,gender,status);
         accountDao.addNewAccount(account);
         response.sendRedirect("/login");
     }
@@ -75,7 +75,7 @@ public class LoginServlet extends HttpServlet {
         boolean gender = Boolean.parseBoolean(request.getParameter("gender"));
         boolean status = Boolean.parseBoolean(request.getParameter("status"));
 
-        Account account = new Account(accountId,accountName,loginName,accountAccess,password,address,phoneNumber,gender,status);
+        Account account = new Account(accountId,accountName,loginName,password,accountAccess,address,phoneNumber,gender,status);
         accountDao.updateAccountById(account);
 
         response.sendRedirect("/login");

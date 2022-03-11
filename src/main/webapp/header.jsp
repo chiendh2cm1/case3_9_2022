@@ -60,7 +60,7 @@
                                 for (Category category : categoryDao.getListCategory()) {
                             %>
                             <li>
-                                <a href="/product?action=showProducByCategory&categoryId=<%=category.getCategoryId()%>"><%=category.getCategoryName()%>
+                                <a href="/product?action=showProductByCategory&categoryId=<%=category.getCategoryId()%>"><%=category.getCategoryName()%>
                                 </a></li>
                             <%
                                 }
@@ -88,7 +88,6 @@
         color: #1e1e1e;
         content: "";
     }
-
     .inner-header .user-access a {
         color: #1e1e1e;
         font-size: 16px;
@@ -99,7 +98,6 @@
         margin-left: 0;
         margin-right: 0;
     }
-
 </style>
 </body>
 </html>
