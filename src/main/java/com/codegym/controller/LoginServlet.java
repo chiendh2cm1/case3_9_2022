@@ -11,6 +11,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 @WebServlet(name = "LoginServlet", value = "/login")
 public class LoginServlet extends HttpServlet {
@@ -27,7 +29,56 @@ public class LoginServlet extends HttpServlet {
             case "signup":
                 signUp(request, response);
                 break;
+            case "edit":
+                editAcount(request, response);
+                break;
+            case "delete":
+                deleteAccount(request, response);
+                break;
+            case "create":
+                createAccount(request,response);
+                break;
         }
+    }
+
+    private void createAccount(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        String accountId = request.getParameter("accountId");
+        String accountName = request.getParameter("accountName");
+        String loginName = request.getParameter("loginName");
+        String accountAccess = request.getParameter("access");
+        String password = request.getParameter("password");
+        String address = request.getParameter("address");
+        String phoneNumber = request.getParameter("phoneNumber");
+        boolean gender = Boolean.parseBoolean(request.getParameter("gender"));
+        boolean status = true;
+
+
+        Account account = new Account(accountId,accountName,loginName,accountAccess,password,address,phoneNumber,gender,status);
+        accountDao.addNewAccount(account);
+        response.sendRedirect("/login");
+    }
+
+    private void deleteAccount(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        String accountId = request.getParameter("accountId");
+        accountDao.deleteAccountById(accountId);
+        response.sendRedirect("/login");
+    }
+
+    private void editAcount(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        String accountId = request.getParameter("accountId");
+        String accountName = request.getParameter("accountName");
+        String loginName = request.getParameter("loginName");
+        String accountAccess = request.getParameter("access");
+        String password = request.getParameter("password");
+        String address = request.getParameter("address");
+        String phoneNumber = request.getParameter("phoneNumber");
+        boolean gender = Boolean.parseBoolean(request.getParameter("gender"));
+        boolean status = Boolean.parseBoolean(request.getParameter("status"));
+
+        Account account = new Account(accountId,accountName,loginName,accountAccess,password,address,phoneNumber,gender,status);
+        accountDao.updateAccountById(account);
+
+        response.sendRedirect("/login");
     }
 
     private void Login(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -140,6 +191,59 @@ public class LoginServlet extends HttpServlet {
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        String action = request.getParameter("action");
+        if(action==null){
+            action = "";
+        }
 
+        switch (action){
+            case "edit":
+                showEditAccountForm(request, response);
+                break;
+            case "create":
+
+                showCreateForm(request, response);
+                break;
+            case "delete":
+                showDeleteAccountForm(request, response);
+                break;
+            default:
+                showListAccountForm(request, response);
+                break;
+
+        }
+    }
+
+    private void showCreateForm(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        RequestDispatcher requestDispatcher = request.getRequestDispatcher("/admin/account/create.jsp");
+        requestDispatcher.forward(request, response);
+    }
+
+    private void showDeleteAccountForm(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
+
+        String accountId = request.getParameter("accountId");
+        Account account = new Account();
+        account = accountDao.findById(accountId);
+        request.setAttribute("account",account);
+        RequestDispatcher requestDispatcher = request.getRequestDispatcher("/admin/account/delete.jsp");
+        requestDispatcher.forward(request, response);
+    }
+
+    private void showEditAccountForm(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        String accountId = request.getParameter("accountId");
+        Account account = new Account();
+        account = accountDao.findById(accountId);
+        request.setAttribute("account",account);
+        RequestDispatcher requestDispatcher = request.getRequestDispatcher("/admin/account/edit.jsp");
+        requestDispatcher.forward(request, response);
+    }
+
+    private void showListAccountForm(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        List<Account> accounts = new ArrayList<>();
+        accounts = accountDao.viewAllAccount();
+        request.setAttribute("accounts", accounts);
+        RequestDispatcher requestDispatcher = request.getRequestDispatcher("/admin/account/list.jsp");
+        requestDispatcher.forward(request, response);
     }
 }

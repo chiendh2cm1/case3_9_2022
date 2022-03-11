@@ -30,6 +30,7 @@ public class CategoryDao implements ICategoryDao {
         return false;
     }
 
+
     @Override
     public Category getCategory(String categoryId) throws SQLException {
         Connection connection = DBConnect.getConnection();
@@ -46,6 +47,7 @@ public class CategoryDao implements ICategoryDao {
 
     @Override
     public boolean addCategory(Category category) {
+<<<<<<< HEAD
        Connection connection = DBConnect.getConnection();
         try {
             PreparedStatement preparedStatement =connection.prepareStatement("insert into chiendemo.category(CategoryID, CategoryName) value (?,?);");
@@ -55,10 +57,13 @@ public class CategoryDao implements ICategoryDao {
         } catch (SQLException e) {
             e.printStackTrace();
         }
+=======
+>>>>>>> 93e5cc16bf7caafdcd67a75f7f8e17459afdb2a7
         return false;
     }
 
     @Override
+<<<<<<< HEAD
     public boolean updateCategory(String id,Category category) {
         Connection connection = DBConnect.getConnection();
         try {
@@ -82,6 +87,9 @@ public class CategoryDao implements ICategoryDao {
         } catch (SQLException e) {
             e.printStackTrace();
         }
+=======
+    public boolean updateCategory(Category category) {
+>>>>>>> 93e5cc16bf7caafdcd67a75f7f8e17459afdb2a7
         return false;
     }
 }

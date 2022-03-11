@@ -2,6 +2,8 @@ package com.codegym.controller;
 
 import com.codegym.dao.ProductDao;
 import com.codegym.model.Product;
+import com.codegym.service.IProductService;
+import com.codegym.service.ProductService;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.MultipartConfig;
@@ -20,6 +22,7 @@ public class ProductServlet extends HttpServlet {
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         action(request, response);
+
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -32,7 +35,7 @@ public class ProductServlet extends HttpServlet {
             action = "";
         }
         switch (action) {
-            case "showProducByCategory":
+            case "showProductByCategory":
                 showProductByCateId(request, response);
                 break;
         }

@@ -1,10 +1,3 @@
-<%--
-  Created by IntelliJ IDEA.
-  User: Dell
-  Date: 3/7/2022
-  Time: 11:31 AM
-  To change this template use File | Settings | File Templates.
---%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <html>
@@ -82,7 +75,7 @@
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a href="/Category" class="nav-link">
+                        <a href="/category" class="nav-link">
                             <i class="nav-icon fas fa-th"></i>
                             <p>
                                 Mangament Category
@@ -103,11 +96,7 @@
                         <a href="/order" class="nav-link">
                             <i class="nav-icon fas fa-th"></i>
                             <p>
-<<<<<<< HEAD
-                                Management order
-=======
-                                Management Order
->>>>>>> 93e5cc16bf7caafdcd67a75f7f8e17459afdb2a7
+                                Order Account
                                 <span class="right badge badge-danger">New</span>
                             </p>
                         </a>
@@ -140,46 +129,46 @@
         <!-- Main content -->
         <section class="content">
             <div class="container-fluid">
-                <h1>Danh sách đơn hàng </h1>
-                <div class="alert alert-success" role="alert">${thongBao}</div>
-                <div class="alert alert-success" role="alert">${thongBao2}</div>
-                <table class="table table-bordered">
-                    <thead>
-                    <tr>
-                        <th scope="col">Order ID</th>
-                        <th scope="col">Customer ID</th>
-                        <th scope="col">Order Date</th>
-                        <th scope="col">Receiver</th>
-                        <th scope="col">Address</th>
-                        <th scope="col">Customer imail</th>
-                        <th scope="col">Customer PhoneNumber</th>
-                        <th colspan="2"></th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    <c:forEach var="order" items="${orders}">
-                        <tr>
-                            <td><a href="/order?action=view&id=${order.orderID}">${order.orderID}(detail)</a></td>
-                            <td>${order.accountID}</td>
-                            <td>${order.orderDate}</td>
-                            <td>${order.receiver}</td>
-                            <td>${order.address}</td>
-                            <td>${order.email}</td>
-                            <td>${order.phoneNumber}</td>
-
-                            <td>
-                                <a class="btn btn-info" href="/order?action=editGet&id=${order.orderID}">
-                                    <i class="fas fa-edit"></i>
-                                </a>
-                            </td>
-                            <td><a class="btn btn-danger" href="/order?action=deleteGet&id=${order.orderID}"><i
-                                    class="fas fa-trash"></i></a></td>
-                        </tr>
-                    </c:forEach>
-                    </tbody>
-                </table>
-
-
+                <h1>Create new product</h1>
+                <form action="/products?action=create" method="post">
+                    <div class="mb-3">
+                        <label for="productId" class="form-label">ProductId</label>
+                        <input name="productId" type="text" class="form-control" id="productId">
+                    </div>
+                    <div class="mb-3">
+                        <label for="category" class="form-label">Category</label>
+                        <select class="form-control" id="category" name="categoryId">
+                            <c:forEach var="category" items="${categories}">
+                                <option value="${category.getCategoryId()}">${category.getCategoryName()}</option>
+                            </c:forEach>
+                        </select>
+                    </div>
+                    <div class="mb-3">
+                        <label for="name" class="form-label">Name</label>
+                        <input name="name" type="text" class="form-control" id="name">
+                    </div>
+                    <div class="mb-3">
+                        <label for="email" class="form-label">Price</label>
+                        <input name="price" type="text" class="form-control" id="email">
+                    </div>
+                    <div class="mb-3">
+                        <label for="quantity" class="form-label">Quantity</label>
+                        <input name="quantity" type="text" class="form-control" id="quantity">
+                    </div>
+                    <div class="mb-3">
+                        <label for="image" class="form-label">Image</label>
+                        <input name="image" type="text" class="form-control" id="image">
+                    </div>
+                    <div class="mb-3">
+                        <label for="status" class="form-label">Status</label>
+                        <input name="status" type="text" class="form-control" id="status">
+                    </div>
+                    <div class="mb-3">
+                        <label for="country" class="form-label">Description</label>
+                        <input name="description" type="text" class="form-control" id="country">
+                    </div>
+                    <button type="submit" class="btn btn-primary">Create</button>
+                </form>
             </div><!-- /.container-fluid -->
         </section>
         <!-- /.content -->

@@ -13,26 +13,43 @@
 </head>
 <body>
 <div class="container">
-    <a href="/products">Danh sách sản phẩm</a>
-    <h1>Chi tiết sản phẩm</h1>
+    <a href="/order">Danh sách order</a>
+    <h1>Chi tiết order</h1>
     <form>
         <div class="mb-3">
-            <label for="exampleInputEmail1" class="form-label">Mã sản phẩm:</label>
-            <input type="text" class="form-control" id="exampleInputEmail1" name="id" value="${product.id}" disabled>
+            <label for="orderId" class="form-label">OrderId:</label>
+            <input type="text" class="form-control" id="orderId" name="orderId" value="${order.orderID}" disabled>
         </div>
         <div class="mb-3">
-            <label for="exampleInputPassword1" class="form-label">Tên sản phẩm:</label>
-            <input type="text" class="form-control" id="exampleInputPassword1" name="name" value="${product.name}" disabled>
+            <label for="accountId" class="form-label">AccountID:</label>
+            <input type="text" class="form-control" id="accountId" name="accountId" value="${order.accountID}" disabled>
         </div>
         <div class="mb-3">
-            <label for="price" class="form-label">Giá sản phẩm:</label>
-            <input type="text" class="form-control" id="price" name="price" value="${product.price}" disabled>
+            <label for="orderDate" class="form-label">Order Date:</label>
+            <input type="text" class="form-control" id="orderDate" name="orderDate" value="${order.orderDate}" disabled>
         </div>
         <div class="mb-3">
-            <label for="description" class="form-label">Mô tả sản phẩm:</label>
-            <input type="text" class="form-control" id="description" name="description" value="${product.description}" disabled>
+            <label for="receiver" class="form-label">Receiver:</label>
+            <input type="text" class="form-control" id="receiver" name="receiver" value="${order.receiver}">
         </div>
-        <a href="/products" class="btn btn-secondary">Quay lại trang danh sách sản phẩm</a>
+        <div class="mb-3">
+            <label for="address" class="form-label">Address:</label>
+            <input type="text" class="form-control" id="address" name="address" value="${order. address}">
+        </div>
+        <div class="mb-3">
+            <label for="email" class="form-label">Email:</label>
+            <input type="text" class="form-control" id="email" name="email" value="${order.email}">
+        </div>
+        <div class="mb-3">
+            <label for="phoneNumber" class="form-label">PhoneNumber:</label>
+            <input type="text" class="form-control" id="phoneNumber" name="phoneNumber" value="${order.phoneNumber}">
+        </div>
+        <div class="mb-3">
+            <label for="status" class="form-label">Status:</label>
+            <input type="text" class="form-control" id="status" name="status" value="${order.status}" disabled>
+        </div>
+        <a href="/products" class="btn btn-secondary"><Return>
+        </Return></a>
     </form>
 </div>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
