@@ -92,7 +92,7 @@
                         </tr>
                         <tr>
                             <td><a href="productDetails.jsp?productId=${product.getProductId()}"
-                                   class="btn btn-primary">Chi Tiết</a></td>
+                                   class="btn btn-primary">Detail</a></td>
                         </tr>
                     </table>
                     <br>

@@ -51,7 +51,7 @@ public class CategoryServlet extends HttpServlet {
                 ShowEditForm(request, response);
                 break;
             default:
-                ShowListOrden(request, response);
+                ShowListCategory(request, response);
                 break;
         }
     }
@@ -84,7 +84,7 @@ public class CategoryServlet extends HttpServlet {
         }
     }
 
-    private void ShowListOrden(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    private void ShowListCategory(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         try {
             List<Category> categories = categoryService.findAll();
             request.setAttribute("categories", categories);

@@ -16,8 +16,8 @@ import java.util.List;
 
 @WebServlet(name = "PaginationServlet", urlPatterns = "/pagination")
 public class PaginationServlet extends HttpServlet {
-    public static final int PRODUCT_QUANTITY_PER_PAGE = 6;
-    ProductDao productServiceImp = new ProductDao();
+    public static final int PRODUCT_QUANTITY_PER_PAGE = 9;
+    ProductDao productDao = new ProductDao();
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
@@ -64,11 +64,11 @@ public class PaginationServlet extends HttpServlet {
         } else {
             pageNumber = Integer.parseInt(request.getParameter("page"));
         }
-        int perPage = 6;
+        int perPage = 9;
         List<Product> productList = null;
         List<Product> subList = null;
 
-        productList = productServiceImp.selectAllProduct();
+        productList = productDao.selectAllProduct();
 
         int start = (pageNumber - 1) * perPage;
         int lastNumber = productList.size();

@@ -1,5 +1,6 @@
 package com.codegym.controller;
 
+import com.codegym.dao.CategoryDao;
 import com.codegym.model.Category;
 import com.codegym.model.Product;
 import com.codegym.service.CategoryService;
@@ -18,7 +19,7 @@ import java.util.List;
 @WebServlet(name = "Product1Servlet", value = "/products")
 public class Product1Servlet extends HttpServlet {
     private IProductService productService = new ProductService();
-    private ICategoryService categoryService = new CategoryService();
+    private CategoryDao categoryService = new CategoryDao();
 
 
     @Override
@@ -46,7 +47,7 @@ public class Product1Servlet extends HttpServlet {
     private void showEditProductForm(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         List<Category> categories = null;
         try {
-            categories = categoryService.findAll();
+            categories = categoryService.getListCategory();
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -61,22 +62,22 @@ public class Product1Servlet extends HttpServlet {
     private void showDeleteProductForm(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         List<Category> categories = null;
         try {
-            categories = categoryService.findAll();
+            categories = categoryService.getListCategory();
+            request.setAttribute("categories", categories);
+            String productId = request.getParameter("id");
+            Product product = productService.findById(productId);
+            request.setAttribute("product", product);
+            RequestDispatcher requestDispatcher = request.getRequestDispatcher("admin/product/delete.jsp");
+            requestDispatcher.forward(request, response);
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        request.setAttribute("categories", categories);
-        String productId = request.getParameter("id");
-        Product product = productService.findById(productId);
-        request.setAttribute("product", product);
-        RequestDispatcher requestDispatcher = request.getRequestDispatcher("admin/product/delete.jsp");
-        requestDispatcher.forward(request, response);
     }
 
     private void showCreateProductForm(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         List<Category> categories = null;
         try {
-            categories = categoryService.findAll();
+            categories = categoryService.getListCategory();
         } catch (SQLException e) {
             e.printStackTrace();
         }

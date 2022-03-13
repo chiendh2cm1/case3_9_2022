@@ -8,7 +8,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class CategoryDao implements ICategoryDao {
+    public static final String UPDATE_CATEGORY = "update category set CategoryName = ? where CategoryID = ?;";
     private static final String SELECT_ALL_CATEGORY = "SELECT * FROM chiendemo.category";
+    public static final String SELECT_CATEGORY_BY_CATEGORY_ID = "select * from chiendemo.category where CategoryID = ?;";
+    public static final String CREATE_CATEGORY = "insert into chiendemo.category(CategoryID, CategoryName) value (?,?);";
+    public static final String CALL_PROCEDURE_DELETE_CATEGORY = "call delete_category(?)";
+
     @Override
     public List<Category> getListCategory() throws SQLException {
         Connection connection = DBConnect.getConnection();
@@ -26,16 +31,10 @@ public class CategoryDao implements ICategoryDao {
     }
 
     @Override
-    public boolean deleteCategory(String id) {
-        return false;
-    }
-
-
-    @Override
     public Category getCategory(String categoryId) throws SQLException {
         Connection connection = DBConnect.getConnection();
         Category category = new Category();
-       PreparedStatement preparedStatement = connection.prepareStatement("select * from chiendemo.category where CategoryID = ?;");
+       PreparedStatement preparedStatement = connection.prepareStatement(SELECT_CATEGORY_BY_CATEGORY_ID);
        preparedStatement.setString(1, categoryId);
        ResultSet rs = preparedStatement.executeQuery();
        while (rs.next()){
@@ -50,7 +49,7 @@ public class CategoryDao implements ICategoryDao {
 
        Connection connection = DBConnect.getConnection();
         try {
-            PreparedStatement preparedStatement =connection.prepareStatement("insert into chiendemo.category(CategoryID, CategoryName) value (?,?);");
+            PreparedStatement preparedStatement =connection.prepareStatement(CREATE_CATEGORY);
             preparedStatement.setString(1, category.getCategoryId());
             preparedStatement.setString(2, category.getCategoryName());
         return preparedStatement.executeUpdate()>0;
@@ -65,7 +64,7 @@ public class CategoryDao implements ICategoryDao {
     public boolean updateCategory(String id,Category category) {
         Connection connection = DBConnect.getConnection();
         try {
-            PreparedStatement preparedStatement = connection.prepareStatement("update category set CategoryName = ? where CategoryID = ?;");
+            PreparedStatement preparedStatement = connection.prepareStatement(UPDATE_CATEGORY);
             preparedStatement.setString(1, category.getCategoryName());
             preparedStatement.setString(2, category.getCategoryId());
             return preparedStatement.executeUpdate() >0;
@@ -79,7 +78,7 @@ public class CategoryDao implements ICategoryDao {
     public boolean deleteCategoryUsingProcedure(String id) {
         Connection connection = DBConnect.getConnection();
         try {
-            CallableStatement callableStatement = connection.prepareCall("call delete_category(?)");
+            CallableStatement callableStatement = connection.prepareCall(CALL_PROCEDURE_DELETE_CATEGORY);
             callableStatement.setString(1, id);
             return  callableStatement.executeUpdate() >0;
         } catch (SQLException e) {
@@ -88,8 +87,4 @@ public class CategoryDao implements ICategoryDao {
         return false;
     }
 
-    @Override
-    public boolean updateCategory(Category category) {
-        return false;
-    }
 }

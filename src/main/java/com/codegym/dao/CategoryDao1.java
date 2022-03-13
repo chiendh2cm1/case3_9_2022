@@ -29,11 +29,6 @@ public class CategoryDao1 implements ICategoryDao{
     }
 
     @Override
-    public boolean deleteCategory(String id) {
-        return false;
-    }
-
-    @Override
     public Category getCategory(String categoryId) throws SQLException {
         return null;
     }
@@ -53,8 +48,4 @@ public class CategoryDao1 implements ICategoryDao{
         return false;
     }
 
-    @Override
-    public boolean updateCategory(Category category) {
-        return false;
-    }
 }

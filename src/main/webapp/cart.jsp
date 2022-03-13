@@ -55,12 +55,10 @@
                         <tbody>
                         <c:forEach items="${order.orderdetails}" var="orderdetail">
                             <tr>
-                                <td><input type="text" name="productId" value="${orderdetail.product.productId}" disabled></td>
-                                <td><input type="text" name="productName" value="${orderdetail.product.productName}" disabled></td>
-<%--                                <td>${orderdetail.product.productId}</td>--%>
-<%--                                <td>${orderdetail.product.productName}</td>--%>
-                                <td><input type="text" name="price" value="<p:formatNumber value="${orderdetail.price}"></p:formatNumber>₫" disabled></td>
-<%--                                <td> <p:formatNumber value="${orderdetail.price}"></p:formatNumber>₫</td>--%>
+
+                                <td>${orderdetail.product.productId}</td>
+                                <td>${orderdetail.product.productName}</td>
+                                    <td> <p:formatNumber value="${orderdetail.price}"></p:formatNumber>₫</td>
                                 <td style="width: 80px; height: 20px;">
                                     <i class="qty mt-5" style="height: 30px;">
                                         <input style="width: 54px;height: 20px;" type="number" class="count"

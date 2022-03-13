@@ -1,7 +1,9 @@
 package com.codegym.controller;
 
 import com.codegym.dao.OrderDao;
+import com.codegym.dao.ProductDetailDao;
 import com.codegym.model.Order;
+import com.codegym.model.Product;
 import com.codegym.service.IOrderService;
 import com.codegym.service.OrderService;
 
@@ -10,17 +12,15 @@ import javax.servlet.http.*;
 import javax.servlet.annotation.*;
 import java.io.IOException;
 import java.sql.SQLException;
-import java.util.Date;
 import java.util.List;
 
 @WebServlet(name = "OrderServlet", value = "/order")
 public class OrderServlet extends HttpServlet {
     private IOrderService orderService;
-
     public OrderServlet() {
         this.orderService = new OrderService(new OrderDao());
     }
-
+ProductDetailDao productDetailDao = new ProductDetailDao();
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String action = request.getParameter("action");
@@ -73,10 +73,14 @@ public class OrderServlet extends HttpServlet {
 
     private void showOrdertail(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String orderId = request.getParameter("id");
-        Order order = orderService.findById(orderId);
-        request.setAttribute("order", order);
-        RequestDispatcher requestDispatcher = request.getRequestDispatcher("admin/order/view.jsp");
-        requestDispatcher.forward(request, response);
+        try {
+            List<Product> products = productDetailDao.getListProductDetailByCategoryId(orderId);
+            request.setAttribute("products", products);
+            RequestDispatcher requestDispatcher = request.getRequestDispatcher("admin/order/view.jsp");
+            requestDispatcher.forward(request, response);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 
 

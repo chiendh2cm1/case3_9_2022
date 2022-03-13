@@ -18,11 +18,7 @@ public interface IOrderDao {
 
     List<Order> viewAllOrder();
 
-//    void updateOder(String orderID, String accountID, String orderDate, String receiver, String address, String email, String phoneNumber, int status);
-
     boolean deleteOder(String orderID);
-
-    void deleteOder_product(String orderID);
 
     Order findByID(String orderIDToFind);
 

@@ -12,10 +12,11 @@ public class OrderDao implements IOrderDao {
     public static final String SELECT_ALL_ORDER = "select * from chiendemo.orders;";
     public static final String GET_MAX_ORDER_ID_BY_ID_HEAD = "select * from chiendemo.orders where OrderID like ? order by OrderID desc limit 1;";
     public static final String ADD_NEW_ORDER_FROM_CART = "insert into chiendemo.orders(OrderID, AccountID, Receiver, Address, Email, PhoneNumber) value (?,?,?,?,?,?);";
-    private static final String ADD_NEW_ORDER_PRODUCT_FROM_CART = "insert into chiendemo.orderdetail value (?,?,?,?,?);";
+    private static final String ADD_NEW_ORDER_PRODUCT_FROM_CART = "insert into chiendemo.order_product value (?,?,?,?,?);";
     public static final String UPDATE_QUANTITY_AFTER_ORDER = "update chiendemo.product set QuantityInStock = ? where ProductID=?";
     private static final String SELECT_BY_ID = "select * from chiendemo.orders where orderID = ?;";
     private static final String UPDATE_ORDER = "update chiendemo.orders set Receiver= ?, Address= ?, Email=?, PhoneNumber=? where OrderID = ?;";
+    public static final String DELETE_ORDER_BY_ID = "call delete_order_by_id(?);";
 
     @Override
     public List<Order> getRecentOrderList() {
@@ -175,50 +176,17 @@ public class OrderDao implements IOrderDao {
     }
 
 
-
-
-//    @Override
-//    public void updateOder(String orderID, String accountID, String orderDate, String receiver, String address, String email, String phoneNumber, int status) {
-//        Connection connection = DBConnect.getConnection();
-//        try {
-//            PreparedStatement ps = connection.prepareStatement(UPDATE_ORDER);
-//            ps.setString(1, accountID);
-//            ps.setString(2, orderDate);
-//            ps.setString(3, receiver);
-//            ps.setString(4, address);
-//            ps.setString(5, email);
-//            ps.setString(6, phoneNumber);
-//            ps.setInt(7, status);
-//            ps.setString(8, orderID);
-//            ps.executeUpdate();
-//        } catch (SQLException e) {
-//            e.printStackTrace();
-//        }
-//    }
-
     @Override
     public boolean deleteOder(String orderID) {
         Connection connection = DBConnect.getConnection();
         try {
-            PreparedStatement ps = connection.prepareStatement("delete from chiendemo.orders where OrderID = ?");
+            PreparedStatement ps = connection.prepareStatement(DELETE_ORDER_BY_ID);
             ps.setString(1, orderID);
             return ps.executeUpdate() > 0;
         } catch (SQLException e) {
             e.printStackTrace();
         }
         return false;
-    }
-
-    @Override
-    public void deleteOder_product(String orderID) {
-        Connection connection = DBConnect.getConnection();
-        try {
-            PreparedStatement ps = connection.prepareStatement("delete from chiendemo.order_product where OrderID = ?");
-            ps.setString(1, orderID);
-            ps.executeUpdate();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
     }
 
 }

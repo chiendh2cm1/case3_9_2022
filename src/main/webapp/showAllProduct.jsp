@@ -1,9 +1,3 @@
-<%@ page import="java.text.NumberFormat" %>
-<%@ page import="java.util.List" %>
-<%@ page import="com.codegym.dao.ProductDao" %>
-<%@ page import="com.codegym.model.Category" %>
-<%@ page import="com.codegym.model.Product" %>
-<%@ page import="com.codegym.dao.CategoryDao" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix = "fmt" uri = "http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
@@ -29,14 +23,6 @@
     <link rel="stylesheet" href="boostrap/css/mainStyle.css">
 </head>
 <body>
-
-<%! public static final int PRODUCT_QUANTITY_PER_PAGE = 6;
-%><%
-    ProductDao productServiceImp = new ProductDao();
-    NumberFormat numberFormat = NumberFormat.getNumberInstance();
-    CategoryDao categoryServiceImp = new CategoryDao();
-    Category category = categoryServiceImp.getCategory(request.getParameter("categoryId"));
-%>
 <%--HEADER--%>
 <jsp:include page="header.jsp"></jsp:include>
 <jsp:include page="header-infor.jsp"></jsp:include>

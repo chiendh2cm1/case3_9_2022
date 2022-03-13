@@ -2,7 +2,7 @@ package com.codegym.controller;
 
 import com.codegym.dao.AccountDao;
 import com.codegym.dao.OrderDao;
-import com.codegym.dao.OrdertailDao;
+import com.codegym.dao.ProductDetailDao;
 import com.codegym.dao.ProductDao;
 import com.codegym.model.Account;
 import com.codegym.model.Order;
@@ -23,7 +23,7 @@ public class CartServlet extends HttpServlet {
     ProductDao productDao = new ProductDao();
     OrderDao orderDao = new OrderDao();
     AccountDao accountDao = new AccountDao();
-    OrdertailDao ordertailDao = new OrdertailDao();
+    ProductDetailDao productDetailDao = new ProductDetailDao();
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -136,13 +136,6 @@ public class CartServlet extends HttpServlet {
 
                 Order order = (Order) session.getAttribute("order");
                 List<Orderdetail> list = order.getOrderdetails();
-                for (int i = 0; i < list.size(); i++) {
-                    try {
-                        ordertailDao.addOrderDetail(list.get(i));
-                    } catch (SQLException e) {
-                        e.printStackTrace();
-                    }
-                }
                 String orderDate = String.valueOf(LocalDate.now());
                 String[] dateArray = orderDate.split("-");
                 int no;
@@ -156,6 +149,14 @@ public class CartServlet extends HttpServlet {
                 }
 
                 String orderId = orderIdHead + String.valueOf(no);
+
+//                for (int i = 0; i < list.size(); i++) {
+//                    try {
+//                        productDetailDao.addOrderDetail(orderId, list.get(i));
+//                    } catch (SQLException e) {
+//                        e.printStackTrace();
+//                    }
+//                }
                 RequestDispatcher requestDispatcher = request.getRequestDispatcher("confirmOrder.jsp");
                 request.setAttribute("orderId", orderId);
                 request.setAttribute("list", list);

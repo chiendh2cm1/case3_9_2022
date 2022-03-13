@@ -13,10 +13,8 @@
                         <h4>About us</h4>
                         <ul>
                             <li>BAC</li>
-                            <li>. BCA</li>
-                            <li>. ABC/li>
-                            <li>. ABC</li>
-                            <li>. ABC</li>
+                            <li>. Devoted</li>
+                            <li>. Conscientious</li>
                         </ul>
                     </div>
                 </div>
@@ -58,11 +56,11 @@
     <div class="social-links-warp">
         <div class="container">
             <div class="social-links">
-                <a href="" class="instagram"><img src="img/instagram.PNG"><span> instagram</span></a>
-                <a href="" class="pinterest"><img src="img/facebook.PNG"><span> facebook</span></a>
-                <a href="" class="facebook"><img src="img/twitter.PNG"><span> twitter</span></a>
-                <a href="" class="twitter"><img src="img/youtube.PNG"><span> youtube</span></a>
-                <a href="" class="twitter"><p><b>GookLuck & Thank you all!!!</b></p></a>
+                <a href="#" class="instagram"><img src="img/instagram.PNG"><span> instagram</span></a>
+                <a href="#" class="pinterest"><img src="img/facebook.PNG"><span> facebook</span></a>
+                <a href="#" class="facebook"><img src="img/twitter.PNG"><span> twitter</span></a>
+                <a href="#" class="twitter"><img src="img/youtube.PNG"><span> youtube</span></a>
+                <a href="#" class="twitter"><p><b>Gookluck & Thank you all!!!</b></p></a>
             </div>
         </div>
     </div>

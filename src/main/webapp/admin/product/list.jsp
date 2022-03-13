@@ -28,7 +28,7 @@
     <!-- Main Sidebar Container -->
     <aside class="main-sidebar sidebar-dark-primary elevation-4">
         <!-- Brand Logo -->
-        <a href="index3.html" class="brand-link">
+        <a href="#" class="brand-link">
             <img src="dist/img/AdminLTELogo.png" alt="AdminLTE Logo" class="brand-image img-circle elevation-3"
                  style="opacity: .8">
             <span class="brand-text font-weight-light">Admin</span>
@@ -118,9 +118,9 @@
         <!-- Main content -->
         <section class="content">
             <div class="container-fluid">
-                <div class="alert alert-success" role="alert">${alertCreate}</div>
-                <div class="alert alert-success" role="alert">${alertEdit}</div>
-                <div class="alert alert-success" role="alert">${alertDelete}</div>
+                <p style="color: #00a379">${alertCreate}</p>
+                <p style="color: #00a379">${alertEdit}</p>
+                <p style="color: #00a379">${alertDelete}</p>
                 <a class="btn btn-primary float-end" href="/products?action=create">Create new product</a><br>
                 <table class="table table-bordered">
                     <thead>

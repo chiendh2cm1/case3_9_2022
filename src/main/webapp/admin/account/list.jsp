@@ -16,7 +16,8 @@
 <html>
 <head>
     <title>$Title$</title>
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
+    <link rel="stylesheet"
+          href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
     <!-- Font Awesome -->
     <link rel="stylesheet" href="../plugins/fontawesome-free/css/all.min.css">
     <!-- Ionicons -->
@@ -41,19 +42,19 @@
     <aside class="main-sidebar sidebar-dark-primary elevation-4">
         <!-- Brand Logo -->
 
-
+        <a href="#" class="brand-link">
+            <img src="dist/img/AdminLTELogo.png" alt="AdminLTE Logo" class="brand-image img-circle elevation-3"
+                 style="opacity: .8">
+            <span class="brand-text font-weight-light">Admin</span>
+        </a>
         <!-- Sidebar -->
         <div class="sidebar">
             <!-- Sidebar user panel (optional) -->
-            <div class="user-panel mt-3 pb-3 mb-3 d-flex">
-
-
-            </div>
-
             <!-- SidebarSearch Form -->
             <div class="form-inline">
                 <div class="input-group" data-widget="sidebar-search">
-                    <input class="form-control form-control-sidebar" type="search" placeholder="Search" aria-label="Search">
+                    <input class="form-control form-control-sidebar" type="search" placeholder="Search"
+                           aria-label="Search">
                     <div class="input-group-append">
                         <button class="btn btn-sidebar">
                             <i class="fas fa-search fa-fw"></i>
@@ -64,7 +65,8 @@
 
             <!-- Sidebar Menu -->
             <nav class="mt-2">
-                <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+                <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu"
+                    data-accordion="false">
                     <!-- Add icons to the links using the .nav-icon class
                          with font-awesome or any other icon font library -->
                     <li class="nav-item">
@@ -109,16 +111,16 @@
         </div>
         <!-- /.sidebar -->
     </aside>
-    <div class = "content-wrapper">
-        <div class = "content-header"></div>
+    <div class="content-wrapper">
+        <div class="content-header"></div>
         <section class="content">
-            <div class = "container-fluid">
-                <div class ="row mb-2">
+            <div class="container-fluid">
+                <div class="row mb-2">
 
                 </div>
                 <h2>Danh sách tài khoản</h2>
-                <a href="/login?action=create">Tạo tài khoản</a>
-                <table class = "table table-bordered">
+                <a class="btn btn-primary float-end" href="/login?action=create">Create new account</a>
+                <table class="table table-bordered">
                     <th>AccountID</th>
                     <th>AccountName</th>
                     <th>LoginName</th>
@@ -129,7 +131,7 @@
                     <th>Gender</th>
 
                     <th colspan="2"></th>
-                    <c:forEach var="account"  items="${accounts}">
+                    <c:forEach var="account" items="${accounts}">
                         <tr>
                             <td>${account.accountId}</td>
                             <td>${account.accountName}</td>
@@ -142,35 +144,39 @@
 
                             <c:choose>
                                 <c:when test="${accountAccess=='1'}">
-                                    <td><c:out value = "Admin"/></td>
+                                    <td><c:out value="Admin"/></td>
                                 </c:when>
                                 <c:when test="${accountAccess=='0'}">
-                                    <td><c:out value = "User"/></td>
+                                    <td><c:out value="User"/></td>
                                 </c:when>
                             </c:choose>
 
-<%--                            <c:set var = "accountAccess" scope = "session" value = "${account.accountAccess}"/>--%>
-<%--                            <c:if test ="${accountAccess==true}">--%>
-<%--                                <td><c:out value = "Admin"/></td>--%>
-<%--                            </c:if>--%>
-<%--                            <c:if test = "${accountAccess==false}">--%>
-<%--                                <td><c:out value = "User"/></td>--%>
-<%--                            </c:if>--%>
+                                <%--                            <c:set var = "accountAccess" scope = "session" value = "${account.accountAccess}"/>--%>
+                                <%--                            <c:if test ="${accountAccess==true}">--%>
+                                <%--                                <td><c:out value = "Admin"/></td>--%>
+                                <%--                            </c:if>--%>
+                                <%--                            <c:if test = "${accountAccess==false}">--%>
+                                <%--                                <td><c:out value = "User"/></td>--%>
+                                <%--                            </c:if>--%>
 
                             <td>${account.address}</td>
                             <td>${account.phoneNumber}</td>
 
-                            <c:set var = "gender" scope = "session" value = "${account.gender}"/>
-                                <c:if test = "${gender==true}">
-                                    <td><c:out value = "Male"/></td>
-                                </c:if></td>
-                                <c:if test = "${gender==false}">
-                                    <td><c:out value = "Female"/></td>
-                                 </c:if>
+                            <c:set var="gender" scope="session" value="${account.gender}"/>
+                            <c:if test="${gender==true}">
+                                <td><c:out value="Male"/></td>
+                            </c:if>
+                            <c:if test="${gender==false}">
+                                <td><c:out value="Female"/></td>
+                            </c:if>
 
 
-                            <td><a href="/login?action=edit&accountId=${account.accountId}"><button class="btn btn-primary">Edit</button></a></td>
-                            <td><a href="/login?action=delete&accountId=${account.accountId}"><button class="btn btn-danger">Delete</button></a></td>
+                            <td><a href="/login?action=edit&accountId=${account.accountId}">
+                                <button class="btn btn-primary">Edit</button>
+                            </a></td>
+                            <td><a href="/login?action=delete&accountId=${account.accountId}">
+                                <button class="btn btn-danger">Delete</button>
+                            </a></td>
                         </tr>
 
                     </c:forEach>
@@ -178,7 +184,6 @@
             </div>
         </section>
     </div>
-
 
 
 </div>

@@ -17,7 +17,6 @@ public class AccountDao implements IAccountDao {
     public static final String SELECT_FROM_ACCOUNT = "select * from chiendemo.account;";
     public static final String SELECT_BY_ID = "select * from chiendemo.account where AccountID = ?;";
     public static final String UPDATE_ACCOUNT_BY_ID = "update chiendemo.account set AccountName = ?, LoginName=?,Password=?,AccountAccess=?,Address=?,PhoneNumber=?,Gender=?,Status=? where AccountID = ?;";
-    public static final String DELETE_ACCOUNT_BY_ID = "delete from chiendemo.account where AccountID = ?";
     public static final String JDBC_DELETE_ACCOUNT_BY_ID = "call delete_account(?)";
     @Override
     public Account findByLoginName(String loginName) {

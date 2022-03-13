@@ -37,10 +37,11 @@
 </head>
 <body>
 
-<%! public static final int PRODUCT_QUANTITY_PER_PAGE = 6;
-%><%
-  ProductDao productServiceImp = new ProductDao();
-  CategoryDao categoryServiceImp = new CategoryDao();
+<%!
+  public static final int PRODUCT_QUANTITY_PER_PAGE = 9;
+%>
+<%
+  ProductDao productDao = new ProductDao();
 %>
 <%--HEADER--%>
 <jsp:include page="header.jsp"></jsp:include>
@@ -62,12 +63,12 @@
         <img class="card-img-top" src="${product.getImage()}" alt="Card image cap" width="620" height="350">
         <div class="card-body">
           <b><h5 class="card-title">${product.getProductName()}</h5></b>
-          <h6 class="price" style="padding-bottom: 15px; color: red">Giá bán
+          <h6 class="price" style="padding-bottom: 15px; color: red">Price
             : <fmt:formatNumber value="${product.getProductPrice()}"></fmt:formatNumber>₫</h6>
           <p class="description">
               ${product.getDescription()}
           </p>
-          <a href="/detail?productId=${product.getProductId()}" class="btn btn-primary">Chi Tiết</a>
+          <a href="/detail?productId=${product.getProductId()}" class="btn btn-primary">Detail</a>
         </div>
       </div>
     </c:forEach>
@@ -75,7 +76,7 @@
   <br>
 </div>
 <%
-  List<Product> productList = productServiceImp.selectAllProduct();
+  List<Product> productList = productDao.selectAllProduct();
   int listSize = productList.size();
   int loopSize;
 

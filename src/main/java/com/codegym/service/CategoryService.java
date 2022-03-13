@@ -8,7 +8,6 @@ import java.util.List;
 
 public class CategoryService implements ICategoryService{
     private ICategoryDao categoryDao;
-
     public CategoryService(ICategoryDao categoryDao) {
         this.categoryDao = categoryDao;
     }
