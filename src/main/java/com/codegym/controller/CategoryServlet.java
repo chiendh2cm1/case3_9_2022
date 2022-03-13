@@ -136,7 +136,7 @@ public class CategoryServlet extends HttpServlet {
     private void DeleteCategory(HttpServletRequest request, HttpServletResponse response) throws IOException {
         String id = request.getParameter("id");
        boolean isDeleted = categoryService.deleteById(id);
-       String thongBao = "";
+       String thongBao = "Delete category successfully!";
        if (isDeleted){
            List<Category> categories = null;
            try {

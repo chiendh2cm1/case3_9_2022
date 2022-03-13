@@ -141,10 +141,8 @@
                         <tr>
                             <th scope="row">${loop.count}</th>
                             <td>${product.getCategoryName()}</td>
-                            <td>
-                                <a href="/products?action=view&id=${product.getProductId()}">${product.getProductName()}</a>
-                            </td>
-                            <td>${product.getProductPrice()}</td>
+                            <td>${product.getProductName()}</td>
+                            <td>${product.getProductPrice()}₫</td>
                             <td>${product.getQuantityInStock()}</td>
                             <td><img src="${product.getImage()}" alt="Error" width="50" height="50"></td>
                             <td>${product.getStatus()}</td>

@@ -2,6 +2,9 @@ package com.codegym.controller;
 
 import com.codegym.dao.ProductDao;
 import com.codegym.model.Product;
+import com.codegym.service.IProductService;
+import com.codegym.service.ProductService;
+
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -14,8 +17,7 @@ import java.util.List;
 
 @WebServlet(name = "SearchProductServlet", urlPatterns = "/search")
 public class SearchProductServlet extends HttpServlet {
-    ProductDao productDao = new ProductDao();
-
+    private IProductService productService = new ProductService();
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         RequestDispatcher dispatcher = request.getRequestDispatcher("search.jsp");
         String name = request.getParameter("searchName");
@@ -25,11 +27,7 @@ public class SearchProductServlet extends HttpServlet {
             dispatcher.forward(request, response);
         } else {
             List<Product> productList = null;
-            try {
-                productList = this.productDao.searchProduct(name);
-            } catch (SQLException throwables) {
-                throwables.printStackTrace();
-            }
+                productList = productService.findAllProductByName(name);
             request.setAttribute("listProduct", productList);
             dispatcher.forward(request, response);
         }

@@ -2,7 +2,6 @@ package com.codegym.controller;
 
 import com.codegym.dao.AccountDao;
 import com.codegym.dao.OrderDao;
-import com.codegym.dao.ProductDetailDao;
 import com.codegym.dao.ProductDao;
 import com.codegym.model.Account;
 import com.codegym.model.Order;
@@ -23,7 +22,6 @@ public class CartServlet extends HttpServlet {
     ProductDao productDao = new ProductDao();
     OrderDao orderDao = new OrderDao();
     AccountDao accountDao = new AccountDao();
-    ProductDetailDao productDetailDao = new ProductDetailDao();
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

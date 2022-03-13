@@ -82,7 +82,7 @@
                                 <input type="password" name="password" class="form-control">
                             </div>
                             <a href="/pagination"><i style="font-size: 25px" class="fas fa-home"></i></a>
-                            <a href="/signUp.jsp"><button type="submit"  value="SignUp" class="btn btn-primary btn-lg">Sign Up </button></a>
+                            <a href="/signUp.jsp"><button type="button"  value="SignUp" class="btn btn-primary btn-lg">Sign Up </button></a>
                             <button type="submit" class="btn btn-primary btn-lg">Login</button>
 
                         </form>

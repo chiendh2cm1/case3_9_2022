@@ -12,21 +12,25 @@
   <table class="table table-bordered">
     <thead>
     <tr>
-      <th scope="col">Index</th>
-      <th scope="col">Mã Sản Phẩm</th>
-      <th scope="col">Tên sản phẩm</th>
-      <th scope="col">Giá sản phẩm</th>
-      <th scope="col">Mô tả sản phẩm</th>
+      <th scope="col">#</th>
+      <th scope="col">Name</th>
+      <th scope="col">Price</th>
+      <th scope="col">Quantity</th>
+      <th scope="col">Image</th>
+      <th scope="col">Status</th>
+      <th scope="col">Description</th>
     </tr>
     </thead>
     <tbody>
     <c:forEach var="product" varStatus="loop" items="${products}">
       <tr>
-        <td>${loop.count}</td>
-        <td>${product.productId}</td>
-        <td>${product.productName}</td>
-        <td>${product.productPrice}</ td>
-        <td>${product.description}</td>
+        <th scope="row">${loop.count}</th>
+        <td>${product.getProductName()}</td>
+        <td>${product.getProductPrice()}₫</td>
+        <td>${product.getQuantityInStock()}</td>
+        <td><img src="${product.getImage()}" alt="Error" width="50" height="50"></td>
+        <td>${product.getStatus()}</td>
+        <td>${product.getDescription()}</td>
       </tr>
     </c:forEach>
     </tbody>

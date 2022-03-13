@@ -31,7 +31,7 @@
     <div class="container-fluid">
         <div class="inner-header">
             <div class="logo">
-                <a href="/pagination"><img src="img/LOGO1.png" alt="logo"></a>
+                <a href="/pagination"><img src="img/logocuoi.gif" alt="logo"></a>
             </div>
             <div class="header-right">
                 <a href="search.jsp"><i class="fa fa-search"></i></a>

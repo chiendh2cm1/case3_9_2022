@@ -67,7 +67,7 @@
                     <td></td>
                 </tr>
             </table>
-            ${signUpOK}
+            <p style="color: #00a379">${signUpOK}</p>
         </div>
     </form>
 </div>

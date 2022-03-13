@@ -67,8 +67,7 @@
     </div>
     <div class="productListShow" style="margin: 30px">
         <div style="padding-top: 40px; padding-bottom: 60px">
-            <%--        Vồng lặp hiển thị sản phẩm theo tên--%>
-            <c:forEach items="${requestScope['listProduct']}" var="product">
+            <c:forEach items="${listProduct}" var="product">
 
                 <div class="categories-block"
                      style="margin-bottom:20px; box-shadow: 5px 5px rgba(43,134,126,0.5);border-radius: 20px; border: 1px rgba(43,134,126,0.5) solid; padding: 40px; height: 580px;">

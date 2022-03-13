@@ -11,31 +11,34 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ProductDao implements IProductDao {
-    private static final String SELECT_ALL_PRODUCT_BY_PRODUCTID = "select * from chiendemo.product where ProductID = ?";
     private static final String SELECT_ALL_PRODUCT = "select * from chiendemo.product";
     private static final String SELECT_PRODUCT_BY_PRODUCTID = "select * from chiendemo.product where ProductID = ?";
-    private static final String UPDATE_PRODUCT = "UPDATE chiendemo.product SET ProductName=?, ProductPrice=?,QuantityInStock=?,Status=?,Description = ? WHERE ProductID = ?";
-    private static final String CREATE_PRODUCT = "INSERT INTO chiendemo.product(ProductID,CategoryID,ProductName,ProductPrice,QuantityInStock,Image,Status,Description) VALUES (?,?,?,?,?,?,?,?);";
     public static final String SELECT_PRODUCT_BY_CATEGORYID = "select * from chiendemo.product where CategoryID = ?";
     public static final String SELECT_FRODUCT_BY_NAME = "select productId, categoryName, ProductName, ProductPrice, QuantityInStock,Image,Status,Description from product join category on product.CategoryID = category.categoryId where ProductName like ?";
     public static final String SQL_SELECT_ALL_PRODUCT = "select productId, categoryName, ProductName, ProductPrice, QuantityInStock,Image,Status,Description \n" +
             "from product join category on product.CategoryID = category.categoryId order by ProductPrice;";
+    public static final String SELECT_PRODUCT_DETAIL = "select  o.OrderID,p.ProductName, order_product.Quantity ,order_product.PriceEach\n" +
+            "from order_product join product p on order_product.ProductID = p.ProductID\n" +
+            "join orders o on order_product.OrderID = o.OrderID\n" +
+            "where o.OrderID = ?;";
     Connection conn = null;
     PreparedStatement ps = null;
     ResultSet rs = null;
 
-    @Override
-    public Product getProductDetail(String productId) {
+    public List<Product> getListProductDetailByCategoryId(String orderId) throws SQLException {
+        List<Product> products = new ArrayList<>();
         conn = DBConnect.getConnection();
-        Product product = new Product();
-        try {
-            PreparedStatement preparedStatement = conn.prepareStatement(SELECT_ALL_PRODUCT_BY_PRODUCTID);
-            rs = preparedStatement.executeQuery();
-            product.setProductId(rs.getString("ProductID"));
-        } catch (SQLException e) {
-            e.printStackTrace();
+        ps = conn.prepareStatement(SELECT_PRODUCT_DETAIL);
+        ps.setString(1, orderId);
+        rs = ps.executeQuery();
+        while (rs.next()) {
+            String productName = rs.getString("ProductName");
+            float productPrice = rs.getFloat("PriceEach");
+            int productQuantity = rs.getInt("Quantity");
+            Product product = new Product(productName, productPrice, productQuantity);
+            products.add(product);
         }
-        return product;
+        return products;
     }
 
     public List<Product> selectAllProduct() {
@@ -131,23 +134,6 @@ public class ProductDao implements IProductDao {
     }
 
     @Override
-    public void createProduct(Product product) throws SQLException {
-        try {
-            conn = DBConnect.getConnection();
-            ps = conn.prepareStatement(CREATE_PRODUCT);
-            ps.setString(1, product.getProductId());
-            ps.setString(2, product.getCategoryId());
-            ps.setString(3, product.getProductName());
-            ps.setFloat(4, product.getProductPrice());
-            ps.setInt(5, product.getQuantityInStock());
-            ps.setString(6, product.getImage());
-            ps.setInt(7, product.getStatus());
-            ps.setString(8, product.getDescription());
-            ps.executeUpdate();
-        } catch (Exception e) {
-        }
-    }
-
     public boolean create(Product product){
         conn = DBConnect.getConnection();
         try {
@@ -168,23 +154,6 @@ public class ProductDao implements IProductDao {
     }
 
     @Override
-    public boolean updateProduct(Product product) {
-        try {
-            conn = DBConnect.getConnection();
-            ps = conn.prepareStatement(UPDATE_PRODUCT);
-            ps.setString(1, product.getProductName());
-            ps.setFloat(2, product.getProductPrice());
-            ps.setInt(3, product.getQuantityInStock());
-            ps.setInt(4, product.getStatus());
-            ps.setString(5, product.getDescription());
-            ps.setString(6, product.getProductId());
-            return ps.executeUpdate() > 0;
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return false;
-    }
-
     public boolean updateById(String productId, Product product) {
         conn = DBConnect.getConnection();
         try {
@@ -211,27 +180,6 @@ public class ProductDao implements IProductDao {
         ps = conn.prepareStatement("DELETE FROM  product Where ProductID = ?");
         ps.setString(1, productId);
         return ps.executeUpdate() > 0;
-    }
-
-    @Override
-    public List<Product> searchProduct(String searchName) throws SQLException {
-        List<Product> productList = new ArrayList<>();
-        conn = DBConnect.getConnection();
-        ps = conn.prepareStatement(SELECT_FRODUCT_BY_NAME);
-        ps.setString(1, "%" + searchName + "%");
-        rs = ps.executeQuery();
-        while (rs.next()) {
-            String id = rs.getString("ProductID");
-            String categoryId = rs.getString("CategoryID");
-            String productName = rs.getString("ProductName");
-            float price = rs.getFloat("ProductPrice");
-            int quantity = rs.getInt("QuantityInStock");
-            String idmage = rs.getString("Image");
-            int status = rs.getInt("Status");
-            String des = rs.getString("Description");
-            productList.add(new Product(id, categoryId, productName, price, quantity, idmage, status, des));
-        }
-        return productList;
     }
 
     public List<Product> findAllProductByName(String name) {

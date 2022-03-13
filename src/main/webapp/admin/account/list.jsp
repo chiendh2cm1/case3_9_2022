@@ -51,18 +51,6 @@
         <div class="sidebar">
             <!-- Sidebar user panel (optional) -->
             <!-- SidebarSearch Form -->
-            <div class="form-inline">
-                <div class="input-group" data-widget="sidebar-search">
-                    <input class="form-control form-control-sidebar" type="search" placeholder="Search"
-                           aria-label="Search">
-                    <div class="input-group-append">
-                        <button class="btn btn-sidebar">
-                            <i class="fas fa-search fa-fw"></i>
-                        </button>
-                    </div>
-                </div>
-            </div>
-
             <!-- Sidebar Menu -->
             <nav class="mt-2">
                 <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu"
@@ -70,11 +58,10 @@
                     <!-- Add icons to the links using the .nav-icon class
                          with font-awesome or any other icon font library -->
                     <li class="nav-item">
-                        <a href="#" class="nav-link">
+                        <a href="/products" class="nav-link">
                             <i class="nav-icon fas fa-th"></i>
                             <p>
                                 Mangament Product
-
                             </p>
                         </a>
                     </li>
@@ -83,7 +70,6 @@
                             <i class="nav-icon fas fa-th"></i>
                             <p>
                                 Mangament Category
-
                             </p>
                         </a>
                     </li>
@@ -92,7 +78,6 @@
                             <i class="nav-icon fas fa-th"></i>
                             <p>
                                 Mangament Account
-
                             </p>
                         </a>
                     </li>
@@ -101,7 +86,6 @@
                             <i class="nav-icon fas fa-th"></i>
                             <p>
                                 Mangament Order
-
                             </p>
                         </a>
                     </li>
@@ -112,13 +96,24 @@
         <!-- /.sidebar -->
     </aside>
     <div class="content-wrapper">
-        <div class="content-header"></div>
-        <section class="content">
+        <div class="content-header">
             <div class="container-fluid">
                 <div class="row mb-2">
+                    <div class="col-sm-6">
+                        <h1 class="m-0">List Account</h1>
+                    </div><!-- /.col -->
+                    <div class="col-sm-6">
+                        <ol class="breadcrumb float-sm-right">
+                            <li class="breadcrumb-item"><a href="/pagination">Home</a></li>
+                            <li class="breadcrumb-item active">Sunflower</li>
+                        </ol>
+                    </div><!-- /.col -->
+                </div><!-- /.row -->
+            </div><!-- /.container-fluid -->
+        </div>
 
-                </div>
-                <h2>Danh sách tài khoản</h2>
+        <section class="content">
+            <div class="container-fluid">
                 <a class="btn btn-primary float-end" href="/login?action=create">Create new account</a>
                 <table class="table table-bordered">
                     <th>AccountID</th>
@@ -129,19 +124,14 @@
                     <th>Address</th>
                     <th>PhoneNumber</th>
                     <th>Gender</th>
-
                     <th colspan="2"></th>
                     <c:forEach var="account" items="${accounts}">
                         <tr>
                             <td>${account.accountId}</td>
                             <td>${account.accountName}</td>
                             <td>${account.loginName}</td>
-
                             <td>${account.password}</td>
-
-
                             <c:set var="accountAccess" value="${account.accountAccess}"/>
-
                             <c:choose>
                                 <c:when test="${accountAccess=='1'}">
                                     <td><c:out value="Admin"/></td>
@@ -150,15 +140,6 @@
                                     <td><c:out value="User"/></td>
                                 </c:when>
                             </c:choose>
-
-                                <%--                            <c:set var = "accountAccess" scope = "session" value = "${account.accountAccess}"/>--%>
-                                <%--                            <c:if test ="${accountAccess==true}">--%>
-                                <%--                                <td><c:out value = "Admin"/></td>--%>
-                                <%--                            </c:if>--%>
-                                <%--                            <c:if test = "${accountAccess==false}">--%>
-                                <%--                                <td><c:out value = "User"/></td>--%>
-                                <%--                            </c:if>--%>
-
                             <td>${account.address}</td>
                             <td>${account.phoneNumber}</td>
 
@@ -169,8 +150,6 @@
                             <c:if test="${gender==false}">
                                 <td><c:out value="Female"/></td>
                             </c:if>
-
-
                             <td><a href="/login?action=edit&accountId=${account.accountId}">
                                 <button class="btn btn-primary">Edit</button>
                             </a></td>
@@ -184,8 +163,6 @@
             </div>
         </section>
     </div>
-
-
 </div>
 </body>
 </html>

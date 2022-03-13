@@ -1,7 +1,7 @@
 package com.codegym.controller;
 
 import com.codegym.dao.OrderDao;
-import com.codegym.dao.ProductDetailDao;
+import com.codegym.dao.ProductDao;
 import com.codegym.model.Order;
 import com.codegym.model.Product;
 import com.codegym.service.IOrderService;
@@ -17,10 +17,14 @@ import java.util.List;
 @WebServlet(name = "OrderServlet", value = "/order")
 public class OrderServlet extends HttpServlet {
     private IOrderService orderService;
+
     public OrderServlet() {
         this.orderService = new OrderService(new OrderDao());
     }
-ProductDetailDao productDetailDao = new ProductDetailDao();
+
+    ProductDao productDao = new ProductDao();
+
+
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String action = request.getParameter("action");
@@ -74,7 +78,7 @@ ProductDetailDao productDetailDao = new ProductDetailDao();
     private void showOrdertail(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String orderId = request.getParameter("id");
         try {
-            List<Product> products = productDetailDao.getListProductDetailByCategoryId(orderId);
+            List<Product> products = productDao.getListProductDetailByCategoryId(orderId);
             request.setAttribute("products", products);
             RequestDispatcher requestDispatcher = request.getRequestDispatcher("admin/order/view.jsp");
             requestDispatcher.forward(request, response);

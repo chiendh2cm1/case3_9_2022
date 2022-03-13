@@ -105,8 +105,8 @@
         <!-- Main content -->
         <section class="content">
             <div class="container-fluid">
-                <p style="color: #00a379"> ${thongBao}</p>
-                <p style="color: #00a379"> ${thongBao2}</p>
+                <p style="color: #00a379">${thongBao}</p>
+                <p style="color: #00a379">${thongBao2}</p>
                 <a class="btn btn-primary float-end" href="/category?action=create">Create new category</a>
                 <table class="table table-bordered">
                     <thead>

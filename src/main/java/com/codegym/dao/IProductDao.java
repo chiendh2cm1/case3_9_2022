@@ -6,20 +6,17 @@ import java.sql.SQLException;
 import java.util.List;
 
 public interface IProductDao {
-    public Product getProductDetail(String productId) ;
 
-    public List<Product> selectAllProduct();
+    List<Product> selectAllProduct();
 
-    public List<Product> getListProductByCategoryId(String categoryId) throws SQLException;
+    List<Product> getListProductByCategoryId(String categoryId) throws SQLException;
 
-    public Product selectProduct(String productId) throws SQLException;
+    Product selectProduct(String productId) throws SQLException;
 
-    public void createProduct(Product product) throws SQLException;
+    boolean create(Product product) throws SQLException;
 
-    public boolean updateProduct(Product product) throws SQLException;
+    boolean updateById(String productId, Product product) throws SQLException;
 
-    public boolean deleteProduct(String productId) throws SQLException;
-
-    public List<Product> searchProduct(String searchName) throws SQLException;
+    boolean deleteProduct(String productId) throws SQLException;
 
 }

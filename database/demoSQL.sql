@@ -68,8 +68,8 @@ create table order_product
     ProductID varchar(20) not null,
     Quantity  int         not null,
     PriceEach float,
-    primary key (OrderID, ProductID),
-    AccountID varchar(20) not null
+    AccountID varchar(20) not null,
+    primary key (OrderID, ProductID)
 );
 
 alter table order_product
@@ -119,34 +119,27 @@ values  ('9', '2', 'Bình hoa đào đông', 300000, 100,'img/product/tangia/891
         ('24', '3', 'Bình hoa tặng 2', 100000, 100,'img/product/sinhnhat/thuy257.webp', 1,
          'Gồm cả bình hoa làm từ gốm bát tràng, hoa mang vẻ đẹp bình dị nhẹ nhàng'),
         ('1', '1', 'Cây lan thủy mặc trắng', 500000, 100,'img/product/cay/cay-co-gia-1.webp', 1,
-        '<p>Gồm giá cây không chậu, cây mang vẻ đẹp bình dị nhẹ nhàng<br>'),
-       ('2', '1', 'Cây lan thủy mặc hồng', 500000, 50, 'img/product/cay/cay-co-gia-2.webp', 1,
-        '<p>Gồm giá cây không chậu, cây mang vẻ đẹp bình dị nhẹ nhàng<br>'),
-       ('3', '1', 'Cây cỏ thác đá xanh', 475000, 100, 'img/product/cay/cay-gia-in-bloom-4.webp', 1,
-        '<p>Gồm giá cây không chậu, cây mang vẻ đẹp bình dị nhẹ nhàng<br>'),
-       ('4', '1', 'Cây chuối cảnh', 300000, 50, 'img/product/cay/cay-gia-in-bloom-6.webp', 1,
-        '<p>Gồm giá cây không chậu, cây mang vẻ đẹp bình dị nhẹ nhàng<br>'),
-       ('5', '1', 'Cây lan hoàng quân', 500000, 50, 'img/product/cay/cay-gia-in-bloom-7.webp', 1,
-        '<p>Gồm giá cây không chậu, cây mang vẻ đẹp bình dị nhẹ nhàng<br>'),
-       ('6', '1', 'Cây cỏ lá rộng', 200000, 50, 'img/product/cay/cay-gia-in-bloom-8.webp', 1,
-        '<p>Gồm giá cây không chậu, cây mang vẻ đẹp bình dị nhẹ nhàng<br>'),
-       ('7', '1', 'Cây cau', 500000, 50, 'img/product/cay/cay-gia-in-bloom-9.webp', 1,
-        '<p>Gồm giá cây không chậu, cây mang vẻ đẹp bình dị nhẹ nhàng<br>'),
-       ('8', '1', 'Cây oliu', 500000, 50, 'img/product/cay/jan-2020-2.webp', 1,
-        '<p>Gồm giá cây không chậu, cây mang vẻ đẹp bình dị nhẹ nhàng<br>');
+         '<p>Gồm giá cây không chậu, cây mang vẻ đẹp bình dị nhẹ nhàng<br>'),
+        ('2', '1', 'Cây lan thủy mặc hồng', 500000, 50, 'img/product/cay/cay-co-gia-2.webp', 1,
+         '<p>Gồm giá cây không chậu, cây mang vẻ đẹp bình dị nhẹ nhàng<br>'),
+        ('3', '1', 'Cây cỏ thác đá xanh', 475000, 100, 'img/product/cay/cay-gia-in-bloom-4.webp', 1,
+         '<p>Gồm giá cây không chậu, cây mang vẻ đẹp bình dị nhẹ nhàng<br>'),
+        ('4', '1', 'Cây chuối cảnh', 300000, 50, 'img/product/cay/cay-gia-in-bloom-6.webp', 1,
+         '<p>Gồm giá cây không chậu, cây mang vẻ đẹp bình dị nhẹ nhàng<br>'),
+        ('5', '1', 'Cây lan hoàng quân', 500000, 50, 'img/product/cay/cay-gia-in-bloom-7.webp', 1,
+         '<p>Gồm giá cây không chậu, cây mang vẻ đẹp bình dị nhẹ nhàng<br>'),
+        ('6', '1', 'Cây cỏ lá rộng', 200000, 50, 'img/product/cay/cay-gia-in-bloom-8.webp', 1,
+         '<p>Gồm giá cây không chậu, cây mang vẻ đẹp bình dị nhẹ nhàng<br>'),
+        ('7', '1', 'Cây cau', 500000, 50, 'img/product/cay/cay-gia-in-bloom-9.webp', 1,
+         '<p>Gồm giá cây không chậu, cây mang vẻ đẹp bình dị nhẹ nhàng<br>'),
+        ('8', '1', 'Cây oliu', 500000, 50, 'img/product/cay/jan-2020-2.webp', 1,
+         '<p>Gồm giá cây không chậu, cây mang vẻ đẹp bình dị nhẹ nhàng<br>');
 
 
 insert into account (AccountID, AccountName, LoginName, Password, AccountAccess, Address, PhoneNumber, Gender, Status)
 values ('AD1', 'admin', 'admin', 'admin', 1, '222 doi can', '0913026630', 0, 1),
-       ('KH1', 'chien', 'chien1821994', '1821994ch', 0, 'DA', '0966351299', 0, 1);
-insert into orders (OrderID, AccountID, OrderDate)
-values ('1', 'AD1', '2022-03-04'),
-       ('2', 'KH1', '2022-03-05');
+       ('KH1', 'chien', 'chien', 'chien', 0, 'DA', '0966351299', 0, 1);
 
-
-insert into order_product (OrderID, ProductID, Quantity, PriceEach, AccountID)
-values ('1', '2', 1, 50000000, 'KH1'),
-       ('2', '3', 3, 12990000, 'KH1');
 
 delimiter //
 create procedure  delete_category (
@@ -176,4 +169,14 @@ alter table account modify Password varchar(20) not null;
 end //
 
 DELIMITER ;
+
+DELIMITER //
+CREATE PROCEDURE delete_order_by_id(in order_id varchar(20))
+BEGIN
+delete from order_product where OrderID = order_id;
+delete from orders where  OrderID = order_id;
+end //
+
+DELIMITER ;
+
 
