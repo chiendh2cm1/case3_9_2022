@@ -7,7 +7,7 @@
 </head>
 <body>
 <div class="container">
-  <a href="/category">Danh sách danh mục sản phẩm</a>
+  <a href="/category">List Category</a>
   <h1>Chi tiết danh mục sản phẩm</h1>
   <table class="table table-bordered">
     <thead>

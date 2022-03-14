@@ -14,7 +14,7 @@
 </head>
 <body>
 <div class="container">
-    <a href="/category">Danh sách danh mục</a>
+    <a href="/category">List Category</a>
     <h1>Cập Nhập Danh Mục</h1>
     <form action="/category?action=editPost&id=${category.categoryId}" method="post">
         <div class="mb-3">

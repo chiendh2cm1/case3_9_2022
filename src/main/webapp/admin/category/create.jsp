@@ -16,7 +16,7 @@
 <body>
 <div class="container">
     <a href="/Category">List Category</a>
-    <h1>Tạo mới danh mục</h1>
+    <h1>Tạo mới danh mục sản phẩm</h1>
     <c:if test="${message!=null}">
         <p class="alert alert-success">${message}</p>
     </c:if>

@@ -13,11 +13,11 @@ public class CategoryService implements ICategoryService{
         this.categoryDao = categoryDao;
     }
 
-
     @Override
     public List<Category> findAll() throws SQLException {
         return categoryDao.getListCategory();
     }
+
 
     @Override
     public Category findById(String id) {
@@ -29,21 +29,21 @@ public class CategoryService implements ICategoryService{
         return null;
     }
 
+
     @Override
     public boolean create(Category category) {
-
         return categoryDao.addCategory(category);
     }
 
+
     @Override
     public boolean updateById(String id, Category category) {
-
         return categoryDao.updateCategory(id,category);
     }
 
+
     @Override
     public boolean deleteById(String id) {
-
         return categoryDao.deleteCategoryUsingProcedure(id);
     }
 }

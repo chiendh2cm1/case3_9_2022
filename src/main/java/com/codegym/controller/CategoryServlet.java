@@ -37,15 +37,7 @@ public class CategoryServlet extends HttpServlet {
                 ShowCreateForm(request, response);
                 break;
             case "view":
-                String id = request.getParameter("id");
-                try {
-                    List<Product> products = productDao.getListProductByCategoryId(id);
-                    request.setAttribute("products", products);
-                    RequestDispatcher dispatcher = request.getRequestDispatcher("admin/category/view.jsp");
-                    dispatcher.forward(request, response);
-                } catch (SQLException e) {
-                    e.printStackTrace();
-                }
+                ShowViewForm(request, response);
                 break;
             case "editGet":
                 ShowEditForm(request, response);
@@ -53,6 +45,18 @@ public class CategoryServlet extends HttpServlet {
             default:
                 ShowListOrden(request, response);
                 break;
+        }
+    }
+
+    private void ShowViewForm(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        String id = request.getParameter("id");
+        try {
+            List<Product> products = productDao.getListProductByCategoryId(id);
+            request.setAttribute("products", products);
+            RequestDispatcher dispatcher = request.getRequestDispatcher("admin/category/view.jsp");
+            dispatcher.forward(request, response);
+        } catch (SQLException e) {
+            e.printStackTrace();
         }
     }
 
@@ -71,7 +75,6 @@ public class CategoryServlet extends HttpServlet {
         RequestDispatcher dispatcher = request.getRequestDispatcher("admin/category/delete.jsp");
         dispatcher.forward(request, response);
     }
-
 
     private void ShowCreateForm(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         try {
@@ -106,30 +109,33 @@ public class CategoryServlet extends HttpServlet {
                 CreateCategory(request, response);
                 break;
             case "editPost":
-                String categoryId = request.getParameter("id");
-                String categoryName = request.getParameter("categoryName");
-                Category category = new Category(categoryId, categoryName);
-                boolean isUpdated = categoryService.updateById(categoryId,category);
-                String thongBao = "";
-                if (isUpdated){
-                    thongBao="Update Successfully!";
-                    request.setAttribute("thongBao",thongBao);
-                    List<Category> categories = null;
-                    try {
-                        categories = categoryService.findAll();
-                    } catch (SQLException e) {
-                        e.printStackTrace();
-                    }
-                    request.setAttribute("categories", categories);
-                    RequestDispatcher requestDispatcher = request.getRequestDispatcher("admin/category/list.jsp");
-                    requestDispatcher.forward(request,response);
-                }
-
+                EditCategory(request, response);
                 break;
             case "deletePost":
                 DeleteCategory(request, response);
                 break;
 
+        }
+    }
+
+    private void EditCategory(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        String categoryId = request.getParameter("id");
+        String categoryName = request.getParameter("categoryName");
+        Category category = new Category(categoryId, categoryName);
+        boolean isUpdated = categoryService.updateById(categoryId,category);
+        String thongBao = "";
+        if (isUpdated){
+            thongBao="Update Successfully!";
+            request.setAttribute("thongBao",thongBao);
+            List<Category> categories = null;
+            try {
+                categories = categoryService.findAll();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+            request.setAttribute("categories", categories);
+            RequestDispatcher requestDispatcher = request.getRequestDispatcher("admin/category/list.jsp");
+            requestDispatcher.forward(request, response);
         }
     }
 

@@ -60,7 +60,7 @@
                                 for (Category category : categoryDao.getListCategory()) {
                             %>
                             <li>
-                                <a href="/product?action=showProducByCategory&categoryId=<%=category.getCategoryId()%>"><%=category.getCategoryName()%>
+                                <a href="/product?action=showProductByCategory&categoryId=<%=category.getCategoryId()%>"><%=category.getCategoryName()%>
                                 </a></li>
                             <%
                                 }
